@@ -1,0 +1,90 @@
+
+<div id="map_1_myl" style="width:336px;height:300px;margin-top:-40px;"></div>
+<script  th:inline="javascript">
+
+var v = 100;
+$.ajax({				 
+	type: "get",
+    url: "http://"+window.location.host+"/nfpt/one/getMyl",
+	async:false,
+	data: {},
+	dataType: "json",
+	success: function(data){
+		v = data.MYL;
+	},error: function(XMLHttpRequest, textStatus, errorThrown){
+		
+	}
+});
+
+var option = {
+    tooltip : {
+        formatter: "{a} <br/>{b} : {c}%",
+		show : false
+    },
+	calculable : false,
+    toolbox: {
+
+    },
+    series: [
+        {axisLine: {
+            show: true,
+            lineStyle: {
+                color: [
+                    [0.166, '#f00'],
+                    [0.5, '#EFC631'],
+                    [0.835, '#63869e'],
+                    [1, '#91c7ae']
+                ],
+                width: 30
+            }
+        },
+            axisTick: {
+                show: true
+            },
+            axisLabel: {
+                distance: 6,
+                textStyle: {
+                    color: 'auto'
+                }
+            },
+            itemStyle: {
+                normal: {
+                    color: 'auto'
+                }
+            },
+            title: {
+                offsetCenter: [0, '90%']
+            },
+            name: '业务指标',
+            type: 'gauge',
+            animationEasing:'circularIn',
+            detail: {
+                formatter:'{value}%',
+                offsetCenter: [0, '60%'],
+                textStyle: {
+                    color: 'auto',
+                    fontSize: 20
+                }},
+            data: [{value: v, name: ''}]
+        }
+    ]
+};
+                    
+	var chart = echarts.init(document.getElementById('map_1_myl'));
+	chart.setOption(option);
+setInterval(function () {
+    $.ajax({
+        type: "get",
+        url: "http://"+window.location.host+"/nfpt/one/getMyl",
+        async:false,
+        data: {},
+        dataType: "json",
+        success: function(data){
+            option.series[0].data[0].value = data.MYL;
+            chart.setOption(option, true);
+        },error: function(XMLHttpRequest, textStatus, errorThrown){
+
+        }
+    });
+},60000);
+</script>

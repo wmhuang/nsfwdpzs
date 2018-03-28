@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Basic Page Needs  -->
+<meta charset="utf-8">
+<title>上海12366纳税服务热线</title>
+<meta name="description" content="">
+<meta name="Keywords" content="" />
+<meta name="author" content="上海12366纳税服务热线">
+<!-- 让360双核浏览器用webkit内核渲染页面 !!! 注意，这行最好放在前面，防止浏览器开始解析的时候采用其它内置的渲染方案
+    <meta name="renderer" content="webkit"> -->
+<!-- 让IE浏览器用最高级内核渲染页面 还有用 Chrome 框架的页面用webkit 内核 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<!-- IOS6全屏 Chrome高版本全屏
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">-->
+<!-- Mobile Specific Metas -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+<!--调试阶段禁止缓存,例如微信，QQ浏览器缓存-->
+<meta http-equiv="Cache-Control"
+	content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<script type="text/javascript" charset="utf-8"
+	src="../static/Highcharts-5.0.11/code/lib/jquery-1.8.3.min.js"
+	th:src="@{/Highcharts-5.0.11/code/lib/jquery-1.8.3.min.js}"></script>
+
+
+<script type="text/javascript"
+	src="../static/js/jquery.waypoints.min.js"
+	th:src="@{/js/jquery.waypoints.min.js}"></script>
+<script type="text/javascript" src="../static/js/jquery.countup.min.js"
+	th:src="@{/js/jquery.countup.min.js}"></script>
+
+<style type="text/css">
+body {
+	margin: 0;
+	background-image: url(../img/back.jpg);
+	background-size: cover;
+}
+
+.content {
+	height: 1245px;
+	min-width: 2033px;
+}
+
+.pageDiv {
+	width: 100%;
+	height: 100%;
+}
+</style>
+</head>
+
+<body>
+	<div id="mainContent" class="content">
+		<div class="pageDiv">
+			<iframe id="pageId" src="" frameborder="0" scrolling="no" width="2033px"
+				height="1245px"> </iframe>
+		</div>
+	</div> 
+	<script th:inline="javascript">
+		var lastPage;
+		var currentPage;
+		var nextPage;
+
+		function getAllConsoleValue() {
+			$.ajax({
+				type : "get",
+				url : "http://" + window.location.host
+						+ "/nfpt/console/getAllConsoleValue",
+				async : false,
+				data : {},
+				dataType : "json",
+				success : function(data) {
+					setValue(data);
+				},
+				error : function(XMLHttpRequest, textStatus, errorThrown) {
+
+				}
+			});
+		}
+		//将list转成map形式 设置属性
+		function setValue(data) {
+			var listMap = {};
+			for (var i = 0; i < data.length; i++) {
+				listMap[data[i].TYPE] = data[i].VALUE;
+			}
+			currentPage = listMap['current_page'];
+			nextPage = listMap['next_page'];
+			lastPage = listMap['last_page'];
+		}
+
+		//页面路径
+		var pageUrlArr = new Array('three', 'one', 'two', 'five', 'six');
+
+		//页面从哪个方向进入 top   left 
+		var pageInType = 'top';
+
+		//页面切换时间（单位：秒）
+		var interval = 30;
+
+		//页面的iframe
+		var frames;
+		var pages;
+
+		//滑动效果
+		function _left() {
+			var vcon = $("body");
+
+			var offset = ($("body div").width() * -1);
+
+			var lastItem = $("body div").last();
+			vcon.find("body").prepend(lastItem);
+
+			if (pageInType == "left") {
+				vcon.css("margin-left", offset);
+				vcon.animate({
+					marginLeft : "0px"
+				}, "slow")
+			} else {
+				vcon.css("margin-top", offset);
+				vcon.animate({
+					marginTop : "0px"
+				}, "slow")
+			}
+		}
+		//功能 显示指定ID的组件
+		function setBlock() {
+					$('#currentPageId').style = "display:none";
+					$('#nextPageId').style = "display:block";
+			}
+			//清理上一页和预加载下一页
+			clearAndloadPage();
+
+		}
+		//修改数据库中的页码信息
+		function updateConsoleValue(type, value) {
+			$.ajax({
+				type : "get",
+				url : "http://" + window.location.host
+						+ "/nfpt/console/updateValue",
+				async : false,
+				data : {
+					type : type,
+					value : value
+				},
+				dataType : "json",
+				success : function(data) {
+
+				}
+			});
+		}
+		
+		//预加载下一页
+		function preLoadPage() {
+			//下一页
+			if (nextPage > pageUrlArr.length - 1) {
+				nextPage = 0;
+			}
+			frames[nextPage].src = pageUrlArr[nextPage];
+
+		}
+
+		function clearAndloadPage() {
+			//加载页面时间点
+			var delayTime;
+			if (interval < 5) {
+				delayTime = interval / 2;
+			} else {
+				delayTime = interval - 5;
+			}
+			//上一页
+			//var lastPage = currentPage - 1;
+			if (lastPage < 0) {
+				lastPage = pageUrlArr.length - 1;
+			}
+			//清理上一页
+			frames[lastPage].src = "";
+
+			//提前加载下一页
+			setTimeout("preLoadPage()", delayTime * 1000);
+		}
+
+		$(function() {
+			getAllConsoleValue()
+			//首先动态添加页面div
+			// 			setBodyDiv();
+
+			// 			frames = $(".pageDiv iframe");
+			// 			pages = $(".pageDiv");
+
+			// 			//加载第一页
+			// 			frames[0].src = pageUrlArr[0];
+
+			// 			setBlock();
+
+			// 			//循环滚动页面
+			// 			setInterval(function() {
+			// 				currentPage++;
+			// 				setBlock();
+			// 				_left();
+			// 				if (currentPage == pageUrlArr.length - 1) {
+			// 					currentPage = -1;
+			// 				}
+			// 			}, interval * 1000);
+
+		})
+	</script>
+</body>
+</html>

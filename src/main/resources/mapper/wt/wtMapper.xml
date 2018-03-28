@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.css.nsfw.dp.dao.wt.WtxxDao">
+    <select id="getDtll" resultType="Map" parameterType="java.lang.String">
+        <![CDATA[
+  with dqll as (select * from (select b.xxid,b.ssfj,b.ssdt,b.ddrs,b.yjddsj,b.rpjclsl,b.dqclsl,b.pjddsj,b.sj,b.cklx,
+  row_number() over(partition by ssfj,ssdt,cklx order by xxid desc) rk from DB_WSHD.T_WSHD_DTLLXX b
+  where TO_DATE(b.RQ, 'YYYY-MM-DD') = trunc(sysdate)) where rk <= 1)
+  SELECT A.DTDM,A.DTMC,A.LXDH,A.BSFWTDZ,A.GZSJ,TO_CHAR(A.DTZT) DTZT,NVL(TO_CHAR(e.DDRS), '0') DDRS,NVL(TO_CHAR(e.YJDDSJ), '0') YJDDSJ,NVL(TO_CHAR(e.RPJCLSL), '0') RPJCLSL,
+  NVL(TO_CHAR(e.DQCLSL), '0') DQCLSL,NVL(TO_CHAR(e.PJDDSJ), '0') PJDDSJ,e.SJ,e.cklx FROM DB_WSHD.T_WSHD_FJXX A, dqll E
+  WHERE rpjclsl>50 AND A.FJDM= #{fjdm} AND A.FJDM = e.SSFJ(+) AND A.DTDM = e.SSDT(+) order by a.dtdm,e.cklx, e.xxid desc
+        ]]>
+    </select>
+
+</mapper>

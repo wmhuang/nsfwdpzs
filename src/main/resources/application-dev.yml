@@ -1,0 +1,35 @@
+server:
+  port: 8080
+  context-path: /nfpt
+content: http://localhost:${server.port}${server.context-path}
+
+
+mybatis:
+  type-aliases-package: com.css.nsfw.dp.domain
+  mapper-locations: classpath:mapper/*.xml
+
+
+## nfpt 数据源配置
+nfpt:
+ datasource:
+  url: jdbc:oracle:thin:@78.12.200.45:1521:nfpt
+  username: DB_NFGL
+  password: DB_NFGL
+  driverClassName: oracle.jdbc.driver.OracleDriver
+
+## wt 数据源配置
+wt:
+ datasource:
+  url: jdbc:oracle:thin:@78.20.141.5:1521:wtkf
+  username: DB_USER
+  password: DB_USER
+  driverClassName: oracle.jdbc.driver.OracleDriver
+
+spring:
+  thymeleaf:
+    mode: HTML5
+    encoding: utf-8
+    content-type: text/html
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html

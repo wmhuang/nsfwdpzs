@@ -1,0 +1,123 @@
+<div id="line6"
+	style="width: 1932px; height: 420px; margin-top: -50px;"></div>
+<script th:inline="javascript">
+	var key = [];
+	var ldzl = [];
+	$.ajax({
+		type : "get",
+		url : "http://" + window.location.host + "/nfpt/six/getLdzlBYUnitThisMonth",
+		async : false,
+		data : {},
+		dataType : "json",
+		success : function(data) {
+			v = data.value;
+			for (var i = 0; i < data.length; i++) {
+				key.push(data[i].UNITNAME);
+				ldzl.push(data[i].LDZL);
+			}
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+
+		}
+	});
+	var option = {
+		backgroundColor : '',
+
+		tooltip : {
+			trigger : 'axis'
+		},
+        grid:{
+            left:'3%',
+            right:'4%',
+            bottom:'20%',
+            containLabel:true
+        },
+		legend : {
+			right : '50',
+			show : false,
+			data : [ {
+				name : '月来电总量',
+				textStyle : {
+					fontSize : 10,//折线宽度
+					fontWeight : 'bold',
+					color : "#1094f6"//折线颜色	
+				}
+			} ],
+
+		},
+		toolbox : {
+			show : false,
+		},
+		calculable : false,
+		xAxis : [ {
+			type : 'category',
+			boundaryGap : false,
+			data : key,
+			axisLine : {
+				lineStyle : {
+					type : 'solid',
+					color : '#fff',//左边线的颜色
+					width : '2'//坐标线的宽度
+				}
+			},
+			axisLabel : {
+                interval:0,
+               // rotate:45,//倾斜角度
+				textStyle : {
+					color : '#fff',//坐标值得具体的颜色
+					fontSize : '30',
+					fontWidth : 'bold'
+				}
+			}
+		} ],
+		yAxis : [ {
+			type : 'value',
+			axisLine : {
+				lineStyle : {
+					type : 'solid',
+					color : '#fff',//左边线的颜色
+					width : '2'//坐标线的宽度
+				}
+			},
+			axisLabel : {
+				formatter : '{value} ',
+				textStyle : {
+					color : '#fff',//坐标值得具体的颜色
+					fontSize : '20',
+					fontWidth : 'bold'
+				}
+			}
+		} ],
+		series : [ {
+			name : '月来电总量',
+			type : 'line',
+			stack : '总量',
+			symbolSize : 8,//拐点大小
+			label : {
+				normal : {
+					show : true,
+					formatter : '{c}',
+					position : 'top',
+					textStyle : {
+						color : "#fbff05",
+						fontSize : '15'
+					}
+				}
+			},
+			itemStyle : {
+				normal : {
+					color : "#1094f6",
+					lineStyle : {
+						width : 5,//折线宽度
+						color : "#1094f6",//折线颜色
+
+					}
+				}
+			},
+			data : ldzl
+		} ]
+	};
+
+	var chart = echarts.init(document.getElementById('line6'));
+	chart.setOption(option);
+</script>

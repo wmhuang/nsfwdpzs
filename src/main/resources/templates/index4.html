@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>上海12366纳税服务热线</title>
+    <meta name="description" content="">
+	<meta name="Keywords" content=""/>
+    <meta name="author" content="上海12366纳税服务热线">
+    <!-- 让360双核浏览器用webkit内核渲染页面 !!! 注意，这行最好放在前面，防止浏览器开始解析的时候采用其它内置的渲染方案  -->
+    <meta name="renderer" content="webkit">
+    <!-- 让IE浏览器用最高级内核渲染页面 还有用 Chrome 框架的页面用webkit 内核 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- IOS6全屏 Chrome高版本全屏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    
+    <!--调试阶段禁止缓存,例如微信，QQ浏览器缓存-->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <!-- 公用CSS -->
+    <link rel="stylesheet" type="text/css"  href="../static/css/public.css" th:href="@{/css/public.css}">
+    <link rel="stylesheet" type="text/css" href="../static/css/index.css" th:href="@{/css/index.css}">
+	<script type="text/javascript" charset="utf-8" src="../static/Highcharts-5.0.11/code/lib/jquery-1.8.3.min.js" th:src="@{/Highcharts-5.0.11/code/lib/jquery-1.8.3.min.js}" ></script>
+    <script type="text/javascript" charset="utf-8" src="../static/Highcharts-5.0.11/code/highcharts.js" th:src="@{/Highcharts-5.0.11/code/highcharts.js}"></script>
+	<script type="text/javascript" charset="utf-8" src="../static/Highcharts-5.0.11/code/highcharts-3d.js" th:src="@{/Highcharts-5.0.11/code/highcharts-3d.js}"></script>
+	<script type="text/javascript" charset="utf-8" src="../static/Highcharts-5.0.11/code/modules/exporting.js" th:src="@{/Highcharts-5.0.11/code/modules/exporting.js}"></script>
+    <script type="text/javascript" src="../static/js/echarts.js" th:src="@{/js/echarts.js}"></script>
+    <script type="text/javascript" src="../static/js/china.js" th:src="@{/js/china.js}"></script>
+    <script type="text/javascript" src="../static/js/shanghai.js" th:src="@{/js/shanghai.js}"></script>
+	<script type="text/javascript" src="../static/js/laiyuan.js" th:src="@{/js/laiyuan.js}"></script>
+    <script type="text/javascript" src="../static/js/footer.js" th:src="@{/js/footer.js}"></script>
+    <script type="text/javascript" src="../static/js/jk_1_rldl.js" th:src="@{/js/jk_1_rldl.js}"></script>
+    <script type="text/javascript" src="../static/js/jk_1_ywlb.js" th:src="@{/js/jk_1_ywlb.js}"></script>
+    <script  th:src="@{/js/jk_1_yldl.js}"></script>
+    <script th:inline="javascript">
+    	$(function(){
+			init();
+			//setInterval(init(),60000);
+		});
+		function init(){
+			getFooter();
+			get1rldl();
+			get1ywlb();
+            get1Yldl();
+            getChinaServiceCount();
+            getLaiyuan("pie_lyqd");
+		}
+    </script>  
+</head>
+
+<body>
+<div class="container">
+	<div class="left_3">
+    	<div class="chunk">
+        	<div>
+            		<div class="title">
+                	<span>全国12366纳税服务热线当年累计</span>
+                    <div style="height: 15px;">&nbsp;</div>
+                    <label>The Total  Amount Of National </label> <label>12366 Tax Hotline Service In This Year</label>
+                </div>
+                <div class="s_map" th:include="map_china"></div>
+                <div class="tac_r" style="margin-top: 70px">
+                	<span class="ia" id="l_rgfwl_a">0</span>
+                    <div class="div_h5"></div>
+                    <span class="cna">人工服务量</span><br/>
+                    <span class="ena">Artificial service</span>
+                </div>
+                <div class="tac_r">
+                    <span class="ia" id="l_ldzl_a">0</span>
+                    <div class="div_h5"></div>
+                    <span class="cna">来电总量</span><br/>
+                    <span class="ena">Total calls</span>
+                </div>
+                <div class="tac_r">
+                	<span class="isa" id="l_jtl_a">0</span>
+                    <div class="div_h5"></div>
+                    <span class="cna">接通率</span><br/>
+                    <span class="ena">Connection rate</span>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div>
+                <div class="title">
+                    <span>上海月来电总量</span>
+                    <label>Shanghai Total monthly calls</label>
+                </div>
+                <div class="a_map" th:include="map_shanghai"></div>
+                <div class="tac_r">
+                    <span class="i" id="l_rgfwl">0</span>
+                    <div class="div_h5"></div>
+                    <span class="cn">人工服务量</span><br/>
+                    <span class="en">Artificial service</span>
+                </div>
+                <div class="tac_r">
+                    <span class="i" id="l_ldzl">0</span>
+                    <div class="div_h5"></div>
+                    <span class="cn">来电总量</span><br/>
+                    <span class="en">Total calls</span>
+                </div>
+                <div class="tac_r">
+                    <span class="is" id="l_jtl">0</span>
+                    <div class="div_h5"></div>
+                    <span class="cn">接通率</span><br/>
+                    <span class="en">Connection rate</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container_cen">
+        <div class="cen_4_h2" style="border:1px solid #d0d7f9;width:100%;height:655px;margin-bottom:20px;">
+            <div class="chunk">
+            	<div class="title">
+                    <span>问题类型</span>
+                    <label>Question Types</label>
+                </div>
+                <div th:include="graph_4_class" style="width:100%;height:auto;"></div>
+            </div>
+        </div>
+        <div class="cen_4_h3">
+            <div class="chunk">
+                <div class="title">
+                    <span id="ino_id">发票管理</span>
+                    <label></label>
+                </div>
+                <div class="tb_line" th:include="line_4_Inovice"></div>
+            </div>
+        </div>
+    </div>
+    
+        <div class="right_3_h4">
+            <div class="chunk">
+            <div class="title">
+                    <span>胶州路工作场景</span><br>
+                    <label>Jiao Zhou Road Work Display</label>
+                </div>
+				<video src="../static/video/jiaozhou.mp4" th:src="@{/video/jiaozhou.mp4}"
+					width="100%" height="80%" loop=true autoplay=true>
+					该浏览器不支持视频显示，请更换浏览器。
+				</video>
+            </div>
+        </div>
+    
+        <div class="right_3_h4" style="margin-top:45px;">
+            <div class="chunk">
+                 <div class="title">
+                    <span>九江路工作场景</span><br>
+                    <label>Jiu Jiang Road Work Display</label>
+                </div>
+				<video src="../static/video/jiujiang.mp4" th:src="@{/video/jiujiang.mp4}"
+					width="100%" height="80%" loop=true autoplay=true>
+					该浏览器不支持视频显示，请更换浏览器。
+				</video>
+            </div>
+        
+    </div>
+</div>    
+<div class="footer">
+	<div class="img">
+    	<img src="../static/img/footer_1.png" th:src="@{/img/footer_1.png}" width="26" height="26"/>
+    </div>
+    <span>&nbsp;&nbsp;<label id="date"></label>&nbsp;&nbsp;<label id="week"></label>&nbsp;&nbsp;<label id="time"></label>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;数据截止日期：<label id="endDate"></label></span>
+</div>        
+</body>
+</html>

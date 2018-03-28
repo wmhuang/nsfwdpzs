@@ -1,0 +1,121 @@
+
+<div id="pie_3_r_con" style="width:529px;height:400px;margin-top:-70px;"></div>
+<script type="text/javascript">
+    var percent = 98;
+$.ajax({				 
+	type: "get",
+	url: "http://"+window.location.host+"/nfpt/three/getShHwzlRgfwlJtl",
+	async:false,
+	data: {},
+	dataType: "json",
+	success: function(data){
+        percent = data.JTL;
+	},error: function(XMLHttpRequest, textStatus, errorThrown){
+		
+	}
+});
+
+    function getData() {
+        return [{
+            value: percent,
+            itemStyle: {
+                normal: {
+                    color: '#fb358a',
+                    shadowBlur: 10,
+                    shadowColor: '#fb358a'
+                }
+            }
+        }, {
+            value: 100 - percent,
+            itemStyle: {
+                normal: {
+                    color: 'transparent'
+                }
+            }
+        }];
+    }
+
+option = {
+    backgroundColor: '',
+
+    title: {
+        text: (percent) + '%',
+        x: 'center',
+        y: 'center',
+        textStyle: {
+            color: '#98a0c4',
+            fontWeight: 'bolder',
+            fontSize: 30,
+        }
+    },
+    series: [{
+        type: 'pie',
+        radius: ['49%', '59%'],
+        silent: true,
+        label: {
+            normal: {
+                show: false,
+            }
+        },
+
+        data: [{
+            value: 1,
+            itemStyle: {
+                normal: {
+                    color: '#483D8B',
+                    shadowBlur: 10,
+                    shadowColor: '#483D8B',
+
+                }
+            }
+        }],
+
+        animation: false
+    },
+
+        {
+            type: 'pie',
+            radius: ['49%', '59%'],
+            silent: true,
+            label: {
+                normal: {
+                    show: false,
+                }
+            },
+
+            data: [{
+                value: 1,
+                itemStyle: {
+                    normal: {
+                        color: '#483D8B',
+                        shadowBlur: 50,
+                        shadowColor: '#483D8B'
+                    }
+                }
+            }],
+
+            animation: false
+        },
+
+        {
+            name: 'main',
+            type: 'pie',
+            radius: ['65%', '61%'],
+            label: {
+                normal: {
+                    show: false,
+                }
+            },
+            data: getData(),
+
+            animationEasingUpdate: 'cubicInOut',
+            animationDurationUpdate: 500
+        }
+    ]
+};
+                    
+	var chart = echarts.init(document.getElementById('pie_3_r_con'));
+	chart.setOption(option);
+
+
+</script>

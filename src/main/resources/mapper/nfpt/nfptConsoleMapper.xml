@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.css.nsfw.dp.dao.nfpt.NfxxConsoleDao">
+	
+	<resultMap id="resultMap" type="java.util.List">  
+		<result column="TYPE" property="TYPE" />  
+		<result column="VALUE" property="VALUE" /> 
+	</resultMap> 
+	
+	<select id="getConsoleValue"  parameterType="String" resultType="String">
+	<![CDATA[
+		  select value  from DB_NFGL.T_DP_CONSOLE t where t.type=#{type}
+	]]>
+	</select>
+	<select id="getAllConsoleValue"   resultType="Map">
+	<![CDATA[
+		  select *  from DB_NFGL.T_DP_CONSOLE t
+	]]>
+	</select>
+	
+	<update id ="updateValue" parameterType="Map">
+	<![CDATA[update DB_NFGL.T_DP_CONSOLE t set t.value= #{value} where t.type=#{type}]]>
+	</update>
+	 
+</mapper>
+
+
+
+
+

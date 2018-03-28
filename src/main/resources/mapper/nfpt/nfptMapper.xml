@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.css.nsfw.dp.dao.nfpt.NfxxDao">
+	<select id="getChina" resultType="Map">
+	<![CDATA[
+		   select t.ldzl ldzlchina,
+				   t.rgyyfwl rgyyfwlchina,
+				   jtl jtlchina
+			  from DB_SW12366.TJ_YYFWFX_QG t
+			 where trunc(t.rq,'yyyy') = trunc(sysdate, 'yyyy') 
+			 and rownum=1
+	]]>
+	</select>
+	<select id="getYldzl" resultType="Map">
+	<![CDATA[
+				   SELECT sum(t.LDZL) yldzl, sum(t.rgyyfwl) yrgyyfwl, to_char(round(sum(t.rgyyfwl) / sum(t.zjrgl) * 100, 2)) yjtl
+		  FROM DB_SW12366.TJ_YYFWFX t
+		 where trunc(t.rq,'mm') = trunc(trunc(sysdate,'mm')-1,'mm')
+	]]>
+	</select>
+	<select id="getShNldzl" resultType="Map">
+	<![CDATA[
+			  SELECT sum(t.LDZL) yldzl,
+			   sum(t.rgyyfwl) yrgyyfwl,
+			   to_char(round(sum(t.rgyyfwl) / sum(t.zjrgl) * 100, 2)) yjtl
+		  FROM DB_SW12366.TJ_YYFWFX t
+		 where trunc(t.rq, 'yyyy') = trunc(sysdate, 'yyyy')
+	]]>
+	</select>
+	<select id="getYxqk" resultType="Map">
+	<![CDATA[
+		select t.dpid,a.unitname,t.DPZHWL,t.DPRPJJTL,t.DPMYL from db_sw12366.ywcl_dpxx t,db_sw12366.XTGL_UNIT a where t.dpid=a.unitcode(+)
+	]]>
+	</select>
+	<select id="getRldzl" resultType="Map">
+	<![CDATA[
+		SELECT sum(t.zdyyfwl) zdyyfwl, sum(t.rgyyfwl) rgyyfwl, sum(t.fql) fql
+		  FROM DB_SW12366.TJ_YYFWFX t
+		 where t.rq = trunc(sysdate)
+	]]>
+	</select>
+	<select id="getHwzl" resultType="Map">
+	<![CDATA[select t.dpyhwl from db_sw12366.ywcl_dpxx t where t.dpid = '1']]>
+	</select>
+	
+	<select id="getShYHwzl" resultType="Map">
+	<![CDATA[select t.dpyhwl from db_sw12366.ywcl_dpxx t where t.dpid = '1']]>
+	</select>
+	
+	<select id="getShNHwzl" resultType ="Map">
+	<![CDATA[select t.dpnhwl from db_sw12366.ywcl_dpxx t where t.dpid = '1']]>
+	</select>
+	
+	<select id="getJtl" resultType="Map">
+	<![CDATA[
+		select (case
+				when sum(c.zjrgl) = 0 then
+				 '100'
+				else
+				 to_char(round(sum(c.rgyyfwl) / sum(c.zjrgl) * 100, 2))
+			  end) jtl
+		 FROM DB_SW12366.TJ_YYFWFX c
+		where c.rq between trunc(sysdate, 'mm') and last_day(sysdate)
+
+	]]>
+	</select>
+	<select id="getMyl" resultType="Map">
+	<![CDATA[
+			select (case
+				   when sum(c.fcmysum + c.mysum + c.ybsum + c.bmysum) = 0 then
+					'100'
+				   else
+					to_char(round((sum(c.fcmysum + c.mysum) /
+								  sum(c.fcmysum + c.mysum + c.ybsum + c.bmysum)) * 100,
+								  2))
+				 end) myl
+			FROM DB_SW12366.TJ_YYFWFX c
+		   where c.rq between trunc(sysdate, 'mm') and last_day(sysdate)
+	]]>
+	</select>
+	<select id="getLyqd" resultType="Map">
+	<![CDATA[
+			select to_char(trunc(a.dh/(a.dh +a.ly+a.qt)*100,2),'fm999990.00') dh,to_char(trunc(a.ly/(a.dh +a.ly+a.qt)*100,2),'fm999990.00') ly,to_char((100-trunc(a.dh/(a.dh +a.ly+a.qt)*100,2)-trunc(a.ly/(a.dh +a.ly+a.qt)*100,2)),'fm999990.00') qt from (
+select sum(decode(t.bmzdcode, '0601', t.slsum, 0)) dh,
+			   sum(decode(t.bmzdcode, '0606', t.slsum, 0)) ly,
+			   sum(decode(t.bmzdcode, '0601', 0, '0606', 0, t.slsum)) qt
+		  from db_sw12366.SH_YWQKTJ t
+		 where t.rq = to_char(sysdate, 'yyyy-mm-dd')
+		   and t.tjlx = '1') a
+	]]>
+	</select>
+	<select id="getYwlb" resultType="Map">
+	<![CDATA[
+							select a.zx,
+			   decode(hj, 0, 0, to_char(trunc((a.zx / hj) * 100, 2), 'fm999990.00')) zxbfb,
+			   a.wjjb,
+			   decode(hj,
+					  0,
+					  0,
+					  to_char(trunc((a.wjjb / hj) * 100, 2), 'fm999990.00')) wjjbbfb,
+			   a.cx,
+			   decode(hj, 0, 0, to_char(trunc((a.cx / hj) * 100, 2), 'fm999990.00')) cxbfb,
+			   a.ssjb,
+			   decode(hj,
+					  0,
+					  0,
+					  to_char(trunc((a.ssjb / hj) * 100, 2), 'fm999990.00')) ssjbbfb,
+			   a.ts,
+			   decode(hj, 0, 0, to_char(trunc((a.ts / hj) * 100, 2), 'fm999990.00')) tsbfb,
+			   a.yjjy,
+			   decode(hj,
+					  0,
+					  0,
+					  to_char((100 - trunc((a.zx / hj) * 100, 2) -
+							  trunc((a.wjjb / hj) * 100, 2) -
+							  trunc((a.cx / hj) * 100, 2) -
+							  trunc((a.ssjb / hj) * 100, 2) -
+							  trunc((a.ts / hj) * 100, 2)),
+							  'fm999990.00')) yjjybfb
+		  from (select sum(decode(t.bmzdcode, '0301', t.slsum, 0)) zx,
+					   sum(decode(t.bmzdcode, '0304', t.slsum, 0)) wjjb,
+					   sum(decode(t.bmzdcode, '0302', t.slsum, 0)) cx,
+					   sum(decode(t.bmzdcode, '0305', t.slsum, 0)) ssjb,
+					   sum(decode(t.bmzdcode, '0303', t.slsum, 0)) ts,
+					   sum(decode(t.bmzdcode, '0306', t.slsum, 0)) yjjy,
+					   sum(decode(t.bmzdcode, '0301', t.slsum, 0)) +
+					   sum(decode(t.bmzdcode, '0304', t.slsum, 0)) +
+					   sum(decode(t.bmzdcode, '0302', t.slsum, 0)) +
+					   sum(decode(t.bmzdcode, '0305', t.slsum, 0)) +
+					   sum(decode(t.bmzdcode, '0303', t.slsum, 0)) +
+					   sum(decode(t.bmzdcode, '0306', t.slsum, 0)) hj
+				  from db_sw12366.SH_YWQKTJ t
+				 where t.rq = to_char(sysdate, 'yyyy-mm-dd')
+				   and t.tjlx = '2') a
+
+	]]>
+	</select>
+	<select id="getMylYd" resultType="Map">
+	<![CDATA[
+					select to_char(c.rq, 'yyyymm') rq,
+			   round((sum(c.fcmysl + c.mysl) /
+			   sum(c.fcmysl + c.mysl + c.ybsl + c.bmysl))*100,2) myl
+		  from DB_SW12366.SH_ZXYYGZQK c
+		 where to_char(c.rq, 'yyyymm') >
+			   to_char(sysdate, 'yyyy') - 1 || to_char(sysdate, 'mm')
+		 group by to_char(c.rq, 'yyyymm')
+		 order by to_char(c.rq, 'yyyymm')
+	]]>
+	</select>
+	<select id="getJtlYd" resultType="Map">
+	<![CDATA[
+					select to_char(c.rq, 'yyyymm') rq,
+			   round(sum(c.rgyyfwl) / sum(c.zjrgl) * 100, 2) jtl
+		  from DB_SW12366.TJ_YYFWFX c
+		 where to_char(c.rq, 'yyyymm') >
+			   to_char(sysdate, 'yyyy') - 1 || to_char(sysdate, 'mm')
+		 group by to_char(c.rq, 'yyyymm')
+		 order by to_char(c.rq, 'yyyymm')
+	]]>
+	</select>
+	<select id="getYyRgFwl" resultType="Map">
+	<![CDATA[
+					select to_char(c.rq, 'yyyymm') rq,
+			   sum(c.zdyyfwl) zdyyfwl,
+			   sum(c.rgyyfwl) rgyyfwl
+		  from DB_SW12366.TJ_YYFWFX c
+		 where to_char(c.rq, 'yyyymm') >
+			   to_char(sysdate, 'yyyy') - 1 || to_char(sysdate, 'mm')
+		 group by to_char(c.rq, 'yyyymm')
+		 order by to_char(c.rq, 'yyyymm')
+	]]>
+	</select>
+	<select id="getYyRgFwlNew" resultType="Map">
+	<![CDATA[
+					select to_char(c.rq, 'yyyymm') rq,
+			   sum(c.LDZL) ldzl
+		  from DB_SW12366.TJ_YYFWFX c
+		 where to_char(c.rq, 'yyyymm') >
+			   to_char(sysdate, 'yyyy') - 1 || to_char(sysdate, 'mm')
+		 group by to_char(c.rq, 'yyyymm')
+		 order by to_char(c.rq, 'yyyymm')
+	]]>
+	</select>
+
+	<select id ="getLdzlBYUnitThisMonth" resultType="Map">
+	<![CDATA[
+				select t.short_name unitname , z.ldzl
+        from (select c.jgbm, sum(c.dpyhwl) as ldzl
+            from (select decode(a.dpid, '131010800', '131010600', a.dpid) as jgbm,
+                   a.dpyhwl
+                from DB_SW12366.ywcl_dpxx a
+                 where a.dpid not in ('1','2')
+                ) c         
+           group by c.jgbm) z,
+           t_unit_short_name t
+       where z.jgbm = t.unitcode
+       order by z.jgbm
+	]]>
+	</select>
+
+	<select id ="getLdzlBYUnitToday" resultType="Map">
+	<![CDATA[
+		select t.short_name unitname , z.ldzl
+        from (select c.jgbm, sum(c.dprhwl) as ldzl
+            from (select decode(a.dpid, '131010800', '131010600', a.dpid) as jgbm,
+                   a.dprhwl
+                from DB_SW12366.ywcl_dpxx a
+                 where a.dpid not in ('1','2')
+                ) c         
+           group by c.jgbm) z,
+           t_unit_short_name t
+       where z.jgbm = t.unitcode
+       order by z.jgbm
+	]]>
+	</select>
+	<select id="getRgfwl" resultType="Map">
+	<![CDATA[
+		  select sum(c.rgyyfwl) rgfwl from db_sw12366.tj_yyfwfx c where to_char(c.rq,'yyyy')=to_char(sysdate,'yyyy')
+	]]>
+	</select>
+
+	<select id="getWtlx" resultType="Map">
+	<![CDATA[
+			select substr(t.rq, 0, 7) rq,
+				  substr(t.bmzdname, 0, 4) yjmc,
+				  substr(t.bmzdname, 7, 10) ejmc,
+				  sum(t.slsum) sl,
+				  trunc(sum(t.slsum)/300) sizee,
+				  min(t.bmzdcode) lxdm,
+				  '' enname
+			 from db_sw12366.sh_ywqktj t
+			where t.tjlx = '3'
+			and to_char(sysdate,'yyyy-mm')=substr(t.rq,0,7)
+			group by substr(t.rq, 0, 7),
+					 substr(t.bmzdname, 0, 4),
+					 substr(t.bmzdname, 7, 10)
+		   having sum(t.slsum) > 2000
+			order by sum(t.slsum) desc
+	]]>
+	</select>
+	<select id="getWtlxMx" resultType="Map" parameterType="String">
+	<![CDATA[
+					select (substr(t.rq, 0, 4) || substr(t.rq, 6, 2)) rq,
+			   substr(t.bmzdname, 0, 4) yjmc,
+			   substr(t.bmzdname, 7, 10) ejmc,
+			   sum(t.slsum) sl,
+			   min(t.bmzdcode) lxdm,
+			   '' enname
+		  from db_sw12366.sh_ywqktj t
+		 where t.tjlx = '3'
+		   and substr(t.rq, 0, 4) || substr(t.rq, 6, 2) >
+			   to_char(sysdate, 'yyyy') - 1 || to_char(sysdate, 'mm')
+			   and t.bmzdcode= #{lxdm}
+		 group by substr(t.rq, 0, 7),
+				  substr(t.bmzdname, 0, 4),
+				  substr(t.bmzdname, 7, 10),
+				  (substr(t.rq, 0, 4) || substr(t.rq, 6, 2))
+having sum(t.slsum) > 2000
+		 order by (substr(t.rq, 0, 4) || substr(t.rq, 6, 2))
+	]]>
+	</select>
+	<select id="getZxXx" resultType="Map" >
+	<![CDATA[
+		select t.zxgh,
+			   t.xm,
+			   t.xj,
+			   t.zb,
+			   a.mc xl,
+			   b.mc zzmm,
+			   trunc((trunc(sysdate, 'yyyy') - trunc(t.rzsj, 'yyyy')) / 365) gznx
+		  from db_nfgl.T_DJ_ZXRYXX t, db_xtwh.t_dm_gy_xl a, db_xtwh.t_dm_gy_zzmm b
+		 where t.zzmm_dm = b.zzmm_dm
+		   and t.xl_dm = a.xl_dm
+		   and t.zxgh in (SELECT zxgh
+							FROM (SELECT zxgh
+									FROM db_nfgl.T_DJ_ZXRYXX a
+								   where a.yxbz = 'Y'
+								   ORDER BY dbms_random.value())
+						   WHERE ROWNUM < 7)
+	]]>
+	</select>
+	<select id="getZxFwxx" resultType="Map" >
+	<![CDATA[
+					select t.jthwl rgfwl,
+			   t.yygdscl gdsl,
+			   t.zxgdl,
+			   t.tsgdl,
+			   t.wfjbgdl wfwjgdl,
+			   trunc(t.dlsc) dlsc,
+			   trunc(t.pjthsc) pjthsc,
+			   trunc(t.pjhhclsc) pjhhclsc,
+				 round(case
+				   when t.fcmysl + t.mysl + t.ybsl + t.bmysl = 0 then
+					0
+				   else
+					100 * (t.fcmysl + t.mysl) / (t.fcmysl + t.mysl + t.ybsl + t.bmysl)
+				 end,
+				 0) as myl,
+			   t.fcmysl,
+			   t.mysl,
+			   t.ybsl,
+			   t.bmysl
+		  from DB_SW12366.SH_ZXYYGZQK t
+		 where t.zxgh = #{zxdm}
+		   and t.rq >= trunc(sysdate)
+
+	]]>
+	</select>
+	
+	<select id="getShHwzlRgfwlJtlJanuary" resultType="Map">
+		select sum(t.ldzl) ldzl,
+		       sum(t.jthwl) rgfwl,
+		       (case
+		         when sum(t.zjrgl) = 0 then
+		          100
+		         else
+		          round(sum(t.jthwl) / sum(t.zjrgl) * 100, 2)
+		       end) jtl
+		  from DB_SW12366.TJ_YYFWFX t
+		 where to_char(t.rq, 'yyyy')  = to_char(add_months(sysdate,-1), 'yyyy')
+		   and t.jgbm != '1'
+	</select>
+	
+	<select id="getShHwzlRgfwlJtlOtherMonth" resultType="Map">
+		<![CDATA[select sum(t.ldzl) ldzl,
+					       sum(t.jthwl) rgfwl,
+					       (case
+					         when sum(t.zjrgl) = 0 then
+					          100
+					         else
+					          round(sum(t.jthwl) / sum(t.zjrgl) * 100, 2)
+					       end) jtl
+					  from DB_SW12366.TJ_YYFWFX t
+					 where to_char(t.rq, 'yyyy') = to_char(sysdate, 'yyyy')
+			 and t.rq <last_day(add_months(sysdate,-1))
+			 	   and t.jgbm != '1']]>
+	</select>
+	
+	<select id="getQgHwzlRgfwlJtl" resultType="Map">
+		<![CDATA[select t.ldzl, t.rgyyfwl rgfwl, t.jtl
+						  from db_sw12366.tj_yyfwfx_qg t
+						 where rownum = 1
+						 order by t.rq desc]]>
+	</select>
+	 
+	 
+</mapper>
+
+
+
+
+

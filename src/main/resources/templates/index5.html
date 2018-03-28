@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Basic Page Needs  -->
+<meta charset="utf-8">
+<title>上海12366纳税服务热线</title>
+<meta name="description" content="">
+<meta name="Keywords" content="" />
+<meta name="author" content="上海12366纳税服务热线">
+<!-- 让360双核浏览器用webkit内核渲染页面 !!! 注意，这行最好放在前面，防止浏览器开始解析的时候采用其它内置的渲染方案  -->
+<meta name="renderer" content="webkit">
+<!-- 让IE浏览器用最高级内核渲染页面 还有用 Chrome 框架的页面用webkit 内核 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<!-- IOS6全屏 Chrome高版本全屏 -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- Mobile Specific Metas -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+<!--调试阶段禁止缓存,例如微信，QQ浏览器缓存-->
+<meta http-equiv="Cache-Control"
+	content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<!-- 公用CSS -->
+<link rel="stylesheet" type="text/css" href="css/public.css"
+	th:href="@{/css/public.css}">
+<link rel="stylesheet" type="text/css" href="css/index.css"
+	th:href="@{/css/index.css}">
+
+<script type="text/javascript" charset="utf-8"
+	src="Highcharts-5.0.11/code/lib/jquery-1.8.3.min.js"
+	th:src="@{/Highcharts-5.0.11/code/lib/jquery-1.8.3.min.js}"></script>
+<script th:src="@{/js/echarts.js}"></script>
+<script th:src="@{/js/china.js}"></script>
+<script th:src="@{/js/shanghai.js}"></script>
+<script type="text/javascript" src="js/footer.js"
+	th:src="@{/js/footer.js}"></script>
+<script type="text/javascript" src="js/jk_5_user.js"
+	th:src="@{/js/jk_5_user.js}"></script>
+<script type="text/javascript" src="js/jk_1_rldl.js"
+	th:src="@{/js/jk_1_rldl.js}"></script>
+<script th:src="@{/js/jk_1_yldl.js}"></script>
+<script th:inline="javascript">
+	$(function() {
+
+		init();
+		//setInterval(init(),60000);
+	});
+	function init() {
+		getFooter();
+		get1rldl();
+		get5user();
+		get1Yldl();
+		getChinaServiceCount();
+	}
+</script>
+<style>
+.dic {
+	margin-top: 0px;
+}
+</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="left_3">
+			<div class="chunk">
+				<div class="title" style="background: url(../img/m_1.png);">
+					<span>胶州路工作场景</span><br> <label>Jiao Zhou Road Work
+						Display</label>
+				</div>
+				<video src="../static/video/jiaozhou.mp4"
+					th:src="@{/video/jiaozhou.mp4}" width="100%" height="40%" loop=true
+					autoplay=true> 该浏览器不支持视频显示，请更换浏览器。
+				</video>
+				<div class="title" style="background: url(../img/m_1.png);">
+					<span>九江路工作场景</span><br> <label>Jiu Jiang Road Work
+						Display</label>
+				</div>
+				<video src="../static/video/jiujiang.mp4"
+					th:src="@{/video/jiujiang.mp4}" width="100%" height="40%" loop=true
+					autoplay=true> 该浏览器不支持视频显示，请更换浏览器。
+				</video>
+			</div>
+		</div>
+		<div class="cen_7_1">
+			<div class="chunk">
+				<div class="userinfo">
+					<img id="tx" th:src="@{/img/c_1.png}"
+						onerror="this.src='../img/c_1.png'" class="tx" />
+					<div class="code" style="position: relative;">
+						<span id="gh"></span> <img id="zzmmpic" src=""
+							style="display: none; width: 50px; height: 50px; padding-right: 20px; position: absolute; top: 25px" />
+						<div style="position: absolute; left: 230px;top:25px">
+							<img class="wjx" src="img/wujiao.svg" th:src="@{/img/wujiao.svg}" />
+							<img class="wjx" src="img/wujiao.svg" th:src="@{/img/wujiao.svg}" />
+							<img class="wjx" src="img/wujiao.svg" th:src="@{/img/wujiao.svg}" />
+							<img class="wjx" src="img/wujiao.svg" th:src="@{/img/wujiao.svg}" />
+							<img class="wjx" src="img/wujiao.svg" th:src="@{/img/wujiao.svg}" />
+						</div>
+
+
+						<div class="info">
+							<h4 style="width: 400px;">
+								组别/Group:&nbsp;<label id="zb"></label>
+							</h4>
+							<h4 style="width: 550px;">
+								政治面貌/Political Status:&nbsp;<label id="zzmm"></label>
+							</h4>
+						</div>
+						<div class="info">
+							<h4 style="width: 400px;">
+								学历/Education:&nbsp;<label id="xl"></label>
+							</h4>
+							<h4 style="width: 550px;">
+								工作年限/Years of Working:&nbsp;<label id="gznx"></label>年
+							</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="cen_7_2">
+			<div class="chunk">
+				<div class="left">
+					<div class="title stats">
+						<span>人工服务量</span> <label>Operator Service Traffic</label> <label
+							class="total" id="c_rgfwl">0</label>
+					</div>
+					<div class="title stats">
+						<span>工单数量</span> <label>Records of Call Answerlng</label> <label
+							class="total" id="c_gdsl">0</label>
+					</div>
+					<div>
+						<div class="dic">
+							<span class="i" id="c_dlsc">0`</span>
+							<div class="div_h45"></div>
+							<span class="cn">登录时长</span><br /> <span class="en">Login
+								Time</span>
+						</div>
+						<div class="dic">
+							<span class="i" id="c_pjthsc">0`</span>
+							<div class="div_h45"></div>
+							<span class="cn">平均通话时长</span><br /> <span class="en">The
+								Average Call Duration</span>
+						</div>
+						<div class="dic">
+							<span class="is" id="c_pjhhclsc">0`</span>
+							<div class="div_h45"></div>
+							<span class="cn">平均话后处理时长</span><br /> <span class="en">Average
+								After Call Work Time</span>
+						</div>
+					</div>
+					<div>
+						<div class="dic">
+							<span class="i" id="c_zxgd">0</span>
+							<div class="div_h45"></div>
+							<span class="cn">咨询工单</span><br /> <span class="en">Records
+								of Consultation</span>
+						</div>
+						<div class="dic">
+							<span class="i" id="c_tsjbgd">0</span>
+							<div class="div_h45"></div>
+							<span class="cn">投诉举报工单</span><br /> <span class="en">Records
+								of Complaints</span>
+						</div>
+						<div class="dic">
+							<span class="is" id="c_wfwjgd">0</span>
+							<div class="div_h45"></div>
+							<span class="cn">违法违纪工单</span><br /> <span class="en">Records
+								of Law and Discipline</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="cen_7_3">
+			<div class="chunk">
+				<div class="right" style="margin-top: 30px;">
+					<div class="title">
+						<span>服务评价</span> <label>Service evaluation</label>
+					</div>
+					<ul class="cen_ul">
+						<li>
+							<div class="img">
+								<img src="img/my_01.svg" th:src="@{/img/my_01.svg}" />
+							</div>
+							<div class="l_tit">
+								满意率<label>Satisfaction Rate</label><span class="r" id="r_myl">0%</span>
+							</div>
+
+						</li>
+						<li>
+							<div class="img">
+								<img src="img/my_02.svg" th:src="@{/img/my_02.svg}" />
+							</div>
+							<div class="l_tit">
+								非常满意<label>Very satished</label><span class="r" id="r_clmy">0</span>
+							</div>
+						</li>
+						<li>
+							<div class="img">
+								<img src="img/my_03.svg" th:src="@{/img/my_03.svg}" />
+							</div>
+							<div class="l_tit">
+								满意<label>Satished</label><span class="r" id="r_my">0</span>
+							</div>
+						</li>
+						<li>
+							<div class="img">
+								<img src="img/my_04.svg" th:src="@{/img/my_04.svg}" />
+							</div>
+							<div class="l_tit">
+								一般<label>General</label><span class="r" id="r_yb">0</span>
+							</div>
+						</li>
+						<li>
+							<div class="img">
+								<img src="img/my_05.svg" th:src="@{/img/my_05.svg}" />
+							</div>
+							<div class="l_tit">
+								不满意<label>Unsatisfied</label><span class="r" id="r_bmy">0</span>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		<div class="img">
+			<img src="img/footer_1.png" th:src="@{/img/footer_1.png}" width="26"
+				height="26" />
+		</div>
+		<span>&nbsp;&nbsp;<label id="date"></label>&nbsp;&nbsp;<label
+			id="week"></label>&nbsp;&nbsp;<label id="time"></label>
+		</span>
+	</div>
+</body>
+</html>

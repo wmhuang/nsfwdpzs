@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>上海12366纳税服务热线</title>
+<meta name="description" content="">
+<meta name="Keywords" content="" />
+<meta name="author" content="上海12366纳税服务热线">
+<!-- 让360双核浏览器用webkit内核渲染页面 !!! 注意，这行最好放在前面，防止浏览器开始解析的时候采用其它内置的渲染方案  -->
+<meta name="renderer" content="webkit">
+<!-- 让IE浏览器用最高级内核渲染页面 还有用 Chrome 框架的页面用webkit 内核 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<!-- IOS6全屏 Chrome高版本全屏 -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- Mobile Specific Metas -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+<!--调试阶段禁止缓存,例如微信，QQ浏览器缓存-->
+<meta http-equiv="Cache-Control"
+	content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<!-- 公用CSS -->
+<link rel="stylesheet" type="text/css" href="css/public.css"
+	th:href="@{/css/public.css}">
+<link rel="stylesheet" type="text/css" href="css/index.css"
+	th:href="@{/css/index.css}">
+
+<script type="text/javascript" charset="utf-8"
+	src="Highcharts-5.0.11/code/lib/jquery-1.8.3.min.js"
+	th:src="@{/Highcharts-5.0.11/code/lib/jquery-1.8.3.min.js}"></script>
+<script type="text/javascript" charset="utf-8"
+	src="Highcharts-5.0.11/code/highcharts.js"
+	th:src="@{/Highcharts-5.0.11/code/highcharts.js}"></script>
+<script type="text/javascript" charset="utf-8"
+	src="Highcharts-5.0.11/code/highcharts-3d.js"
+	th:src="@{/Highcharts-5.0.11/code/highcharts-3d.js}"></script>
+<script type="text/javascript" charset="utf-8"
+	src="Highcharts-5.0.11/code/modules/exporting.js"
+	th:src="@{/Highcharts-5.0.11/code/modules/exporting.js}"></script>
+<script th:src="@{/js/echarts.js}"></script>
+<script th:src="@{/js/china.js}"></script>
+<script th:src="@{/js/shanghai.js}"></script>
+
+<script type="text/javascript" src="js/laiyuan.js"
+	th:src="@{/js/laiyuan.js}"></script>
+<script type="text/javascript" src="js/footer.js"
+	th:src="@{/js/footer.js}"></script>
+<script type="text/javascript" src="js/jk_1_rldl.js"
+	th:src="@{/js/jk_1_rldl.js}"></script>
+<script type="text/javascript" src="js/jk_1_ywlb.js"
+	th:src="@{/js/jk_1_ywlb.js}"></script>
+<script th:src="@{/js/jk_1_yldl.js}"></script>
+ <script th:src="@{/js/jk_1_hwzl.js}"></script>
+<script th:src="@{/js/jk_1_rldl.js}"></script>
+<script th:inline="javascript">
+
+	$(function() {
+		init();
+	});
+	function init() {
+		get1hwzl();//当月话务总量
+		get1rldl();//当日话务总量以及人工服务量，自动语音服务量，放弃数
+		getFooterTime();
+		get1rldl();
+		getShNldzl();
+		get1ywlb();
+		//get1Yldl();
+		getChinaServiceCount();
+	}
+</script>
+</head>
+
+<body>
+	<div class="container">
+	
+	<div class="cen_4">
+        <div class="chunk">
+                <div class="title">
+                    <span>当月话务总量</span>
+                    <label>Monthly Voice Traffic</label>
+                </div>
+                <div class="mvt_num" id="c_hwzl">0</div>
+            <div>
+                <div class="title" style="height:80px;background: url(../img/m_1.png);" >
+                    <div style="float:left;margin-top:23px">
+                    <span >当日话务总量</span>
+                    <label>Daily Incoming Calls</label>
+                    </div>
+                     <div class="dvt_num" id="d_hwzl">0</div>
+                </div>
+                <div class="dic">
+                    <span class="i" id="c_rgfwl">0</span>
+                    <div class="div_h45"></div>
+                    <span class="cn">人工服务量</span><br/>
+                    <span class="en">Volume of Operator Service</span>
+                </div>
+                <div class="dic">
+                <span class="i" id="c_zdyyfwl">0</span>
+                    <div class="div_h45"></div>
+                    <span class="cn">自动语音服务量</span><br/>
+                    <span class="en">Volume of Automatlc Voice Response Service</span>
+                </div>
+                <div class="dic">
+                    <span class="is" id="c_fqs">0</span>
+                    <div class="div_h45"></div>
+                    <span class="cn">放弃数</span><br/>
+                    <span class="en">Numbers of Given-up Calls</span>
+                </div>
+            </div>
+            <div>
+                <div class="title1_r">
+                    <div class="img">
+                        <img src="../static/img/r_1.png" th:src="@{/img/r_1.png}"/>
+                    </div>
+                    <div class="tit">
+                        <span>当月接通率</span></br>
+                        <label>Monthly Connection Rate</label>
+                    </div>
+                    <div class="img">
+                        <img src="../static/img/r_2.png" th:src="@{/img/r_2.png}"/>
+                    </div>
+                    <div class="tit">
+                        <span>当月满意率</span></br>
+                        <label>Monthly Satisfaction rate</label>
+                    </div>
+                </div>
+                <div class="tb">
+                    <div th:include="pie_1_ConnectionRate" style="width:48%;height:100%;border:none;float:left;"></div>
+                    <div th:include="pie_1_SatisfactionRate"
+                         style="width:48%;height:100%;border:none;float:right;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+	
+<div class="container_cen1">
+		<div class="right_3_r">
+			<div class="chunk" style="height:87.5%">
+				<div class="title">
+					<span>来电总量 近12月趋势</span> <label>Total calls trend</label>
+				</div>
+				<div class="tb_line" th:include="line_2_Totalcalls_new"></div>
+			</div>
+		</div>
+		<div class="right_3_r">
+			<div class="chunk">
+				<div class="title">
+					<span>接通率 近12月趋势</span> <label>Through rate trend</label>
+				</div>
+				<div class="tb_line" th:include="line_2_ThroughRate"></div>
+			</div>
+		</div>
+		<div class="right_3_r">
+			<div class="chunk">
+				<div class="title">
+					<span>满意率 近12月趋势</span> <label>Satisfaction rate trend</label>
+				</div>
+				<div class="tb_line" th:include="line_2_SatisfactionRate"></div>
+			</div>
+		</div>
+</div>
+
+	</div>
+	<div class="footer">
+		<div class="img">
+			<img src="img/footer_1.png" th:src="@{/img/footer_1.png}" width="26"
+				height="26" />
+		</div>
+		<span>&nbsp;&nbsp;<label id="date"></label>&nbsp;&nbsp;<label
+			id="week"></label>&nbsp;&nbsp;<label id="time"></label></span>
+	</div>
+</body>
+</html>

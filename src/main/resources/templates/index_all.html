@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Basic Page Needs  -->
+<meta charset="utf-8">
+<title>上海12366纳税服务热线</title>
+<meta name="description" content="">
+<meta name="Keywords" content="" />
+<meta name="author" content="上海12366纳税服务热线">
+<!-- 让360双核浏览器用webkit内核渲染页面 !!! 注意，这行最好放在前面，防止浏览器开始解析的时候采用其它内置的渲染方案
+    <meta name="renderer" content="webkit"> -->
+<!-- 让IE浏览器用最高级内核渲染页面 还有用 Chrome 框架的页面用webkit 内核 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<!-- IOS6全屏 Chrome高版本全屏
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">-->
+<!-- Mobile Specific Metas -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+<!--调试阶段禁止缓存,例如微信，QQ浏览器缓存-->
+<meta http-equiv="Cache-Control"
+	content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<!-- 公用CSS -->
+<link rel="stylesheet" type="text/css" href="../static/css/public.css"
+	th:href="@{/css/public.css}">
+<link rel="stylesheet" type="text/css" href="../static/css/index.css"
+	th:href="@{/css/index.css}">
+
+<script type="text/javascript" charset="utf-8"
+	src="../static/Highcharts-5.0.11/code/lib/jquery-1.8.3.min.js"
+	th:src="@{/Highcharts-5.0.11/code/lib/jquery-1.8.3.min.js}"></script>
+	
+	
+<script type="text/javascript" charset="utf-8"
+	src="../static/Highcharts-5.0.11/code/highcharts.js"
+	th:src="@{/Highcharts-5.0.11/code/highcharts.js}"></script>
+<script type="text/javascript" charset="utf-8"
+	src="../static/Highcharts-5.0.11/code/highcharts-3d.js"
+	th:src="@{/Highcharts-5.0.11/code/highcharts-3d.js}"></script>
+<script type="text/javascript" charset="utf-8"
+	src="../static/Highcharts-5.0.11/code/modules/exporting.js"
+	th:src="@{/Highcharts-5.0.11/code/modules/exporting.js}"></script>
+
+
+<script type="text/javascript"
+	src="../static/js/jquery.waypoints.min.js"
+	th:src="@{/js/jquery.waypoints.min.js}"></script>
+<script type="text/javascript" src="../static/js/jquery.countup.min.js"
+	th:src="@{/js/jquery.countup.min.js}"></script>
+<script type="text/javascript" src="../static/js/echarts.js"
+	th:src="@{/js/echarts.js}"></script>
+<script type="text/javascript" src="../static/js/china.js"
+	th:src="@{/js/china.js}"></script>
+<script type="text/javascript" src="../static/js/shanghai.js"
+	th:src="@{/js/shanghai.js}"></script>
+<script type="text/javascript" src="../static/js/laiyuan.js"
+	th:src="@{/js/laiyuan.js}"></script>
+<script type="text/javascript" src="../static/js/footer.js"
+	th:src="@{/js/footer.js}"></script>
+<script type="text/javascript" src="../static/js/all_map.js"
+	th:src="@{/js/all_map.js}"></script>
+<script type="text/javascript" src="../static/js/jk_all.js"
+	th:src="@{/js/jk_all.js}"></script>
+<script type="text/javascript" src="../static/js/jk_1_hwzl.js"
+	th:src="@{/js/jk_1_hwzl.js}"></script>
+<script type="text/javascript" src="../static/js/jk_1_rldl.js"
+	th:src="@{/js/jk_1_rldl.js}"></script>
+<script type="text/javascript" src="../static/js/jk_1_ywlb.js"
+	th:src="@{/js/jk_1_ywlb.js}"></script>
+<script type="text/javascript" src="../static/js/jk_3_qg_hwzl.js"
+	th:src="@{/js/jk_3_qg_hwzl.js}"></script>
+<script type="text/javascript" src="../static/js/jk_3_sh_hwzl.js"
+	th:src="@{/js/jk_3_sh_hwzl.js}"></script>
+<script type="text/javascript" src="../static/js/jk_5_user.js"
+	th:src="@{/js/jk_5_user.js}"></script>
+<script th:src="@{/js/jk_1_yldl.js}"></script>
+
+<script th:inline="javascript">
+	var i = 2;
+	var init_bool = true;
+	$(function() {
+		setThirdScrren();
+		/**底部公共js**/
+		getFooter()
+		setInterval(getFooter(), 60000);
+		/**初始化默认页面加载内容**/
+
+		setInterval(function() {
+
+			if (i == 1) {
+				//console.log("第1屏");
+				setThirdScrren();
+			} else if (i == 2) {
+				//console.log("第2屏");
+				setFirstScreen();
+			} else if (i == 3) {
+				//console.log("第3屏");
+				setScendScrren();
+			} else if (i == 4) {
+				//console.log("第4屏");
+				setFourthScrren();
+			} else if (i == 5) {
+				//console.log("第5屏");
+				setFivethScrren();
+			}
+			_left();
+			++i;
+			if (i > 5) {
+				i = 1;
+				init_bool = false;
+			}
+		}, 30000);
+
+	});
+	//第一屏
+	function setFirstScreen() {
+
+		$("#i1_left").css("display", "block");
+		$("#i1_cen").css("display", "block");
+		$("#i1_right1").css("display", "block");
+		$("#video_id_1").css("display", "none");
+		$("#video_id_2").css("display", "none");
+		$("#i1_right2").css("display", "block");
+		$("#i2_cen1").css("display", "none");
+		$("#i2_cen2").css("display", "none");
+		$("#i2_cen3").css("display", "none");
+		$("#i3_left").css("display", "none");
+		$("#i3_cen").css("display", "none");
+		$("#i3_right").css("display", "none");
+		$("#i4_cen").css("display", "none");
+		$("#i5_cen1").css("display", "none");
+		$("#i5_cen2").css("display", "none");
+		$("#i5_cen3").css("display", "none");
+		//$("#c_hwzl").countUp();
+		getLaiyuan("pie_lyqd_1");
+		getChina("map_china_1");
+		getShangHai("map_shanghai_1");
+		get1rldl();
+		get1Yldl();
+		getChinaServiceCount();
+		get1ywlb();
+		get1hwzl();
+		getJtl("map_1_jtl");
+		getMyl("map_1_myl");
+	}
+	//第二屏
+	function setScendScrren() {
+
+		$("#i1_left").css("display", "block");
+		$("#i1_cen").css("display", "none");
+		$("#i1_right1").css("display", "none");
+		$("#video_id_1").css("display", "none");
+		$("#video_id_2").css("display", "none");
+		$("#i1_right2").css("display", "none");
+		$("#i2_cen1").css("display", "block");
+		$("#i2_cen2").css("display", "block");
+		$("#i2_cen3").css("display", "block");
+		$("#i3_left").css("display", "none");
+		$("#i3_cen").css("display", "none");
+		$("#i3_right").css("display", "none");
+		$("#i4_cen").css("display", "none");
+		$("#i5_cen1").css("display", "none");
+		$("#i5_cen2").css("display", "none");
+		$("#i5_cen3").css("display", "none");
+		if (init_bool) {
+			//getChina("map_china_2");
+			//getShangHai("map_shanghai_2");
+			getYyRgFwl("line_2_total");
+			getMylYd("line_2_sat");
+			getJtlYd("line_2_thr");
+		}
+	}
+	//第三屏
+	function setThirdScrren() {
+
+		$("#i1_left").css("display", "none");
+		$("#i1_cen").css("display", "none");
+		$("#i1_right1").css("display", "none");
+		$("#video_id_1").css("display", "none");
+		$("#video_id_2").css("display", "none");
+		$("#i1_right2").css("display", "none");
+		$("#i2_cen1").css("display", "none");
+		$("#i2_cen2").css("display", "none");
+		$("#i2_cen3").css("display", "none");
+		$("#i3_left").css("display", "block");
+		$("#i3_cen").css("display", "block");
+		$("#i3_right").css("display", "block");
+		$("#i4_cen").css("display", "none");
+		$("#i5_cen1").css("display", "none");
+		$("#i5_cen2").css("display", "none");
+		$("#i5_cen3").css("display", "none");
+		if (init_bool) {
+			getChina3("map_china_3");
+			get3qghwzl();
+			get3shhwzl();
+			getSHJtl("pie_3_r_con");
+			getCHJtl("pie_3_l_con");
+		}
+		//$("#qg_hwzl").countUp();
+		//$("#sh_hwzl").countUp();
+		//$("#qg_rgfw").countUp();
+		//$("#sh_rgfw").countUp();
+	}
+	//第四屏
+	function setFourthScrren() {
+
+		$("#i1_left").css("display", "block");
+		$("#i1_cen").css("display", "none");
+		$("#i1_right1").css("display", "none");
+		$("#video_id_1").css("display", "block");
+		$("#video_id_2").css("display", "block");
+		$("#i1_right2").css("display", "none");
+		$("#i2_cen1").css("display", "none");
+		$("#i2_cen2").css("display", "none");
+		$("#i2_cen3").css("display", "none");
+		$("#i3_left").css("display", "none");
+		$("#i3_cen").css("display", "none");
+		$("#i3_right").css("display", "none");
+		$("#i4_cen").css("display", "block");
+		$("#i5_cen1").css("display", "none");
+		$("#i5_cen2").css("display", "none");
+		$("#i5_cen3").css("display", "none");
+		if (init_bool) {
+			//getChina("map_china_4");
+			//getShangHai("map_shanghai_4");
+			//getLaiyuan("pie_lyqd_4");
+			getWtlx("graph_4_class");
+			getWtlxMx("line_4_ino");
+		}
+	}
+	//第五屏
+	function setFivethScrren() {
+		$("#i1_left").css("display", "block");
+		$("#i1_cen").css("display", "none");
+		$("#i1_right1").css("display", "none");
+		$("#video_id_1").css("display", "none");
+		$("#video_id_2").css("display", "none");
+		$("#i1_right2").css("display", "none");
+		$("#i2_cen1").css("display", "none");
+		$("#i2_cen2").css("display", "none");
+		$("#i2_cen3").css("display", "none");
+		$("#i3_left").css("display", "none");
+		$("#i3_cen").css("display", "none");
+		$("#i3_right").css("display", "none");
+		$("#i4_cen").css("display", "none");
+		$("#i5_cen1").css("display", "block");
+		$("#i5_cen2").css("display", "block");
+		$("#i5_cen3").css("display", "block");
+		if (init_bool) {
+			//getChina("map_china_5");
+			//getShangHai("map_shanghai_5");
+			get5user();
+		}
+	}
+
+	//滑动效果
+	function _left() {
+		var vcon = $(".v_cont");
+		var offset = ($(".v_cont div").width() * -1);
+		var lastItem = $(".v_cont div").last();
+		vcon.find(".v_cont").prepend(lastItem);
+		vcon.css("margin-top", offset);
+		vcon.animate({
+			marginTop : "0px"
+		}, "slow")
+	}
+</script>
+
+</head>
+
+<body class="v_cont">
+
+	<div class="container">
+		<div id="i1_left" class="left_3">
+			<div class="chunk">
+				<div>
+					<div class="title">
+						<span>全国12366纳税服务热线当年累计</span>
+						<div style="height: 15px;">&nbsp;</div>
+						<label>The Total Amount Of National </label> <label>12366
+							Tax Hotline Service In This Year</label>
+					</div>
+					<div class="s_map" id="map_china_1"></div>
+
+					<div class="tac_r" style="margin-top: 70px">
+						<span class="ia" id="l_rgfwl_a">0</span>
+						<div class="div_h5"></div>
+						<span class="cna">人工服务量</span><br /> <span class="ena">Artificial
+							service</span>
+					</div>
+					<div class="tac_r">
+						<span class="ia" id="l_ldzl_a">0</span>
+						<div class="div_h5"></div>
+						<span class="cna">来电总量</span><br /> <span class="ena">Total
+							calls</span>
+					</div>
+					<div class="tac_r">
+						<span class="isa" id="l_jtl_a">0</span>
+						<div class="div_h5"></div>
+						<span class="cna">接通率</span><br /> <span class="ena">Connection
+							rate</span>
+						<div class="clear"></div>
+					</div>
+				</div>
+				<div>
+					<div class="title">
+						<span>上海月来电总量</span> <label>Shanghai Total monthly calls</label>
+					</div>
+					<div class="a_map" id="map_shanghai_1"></div>
+					<div class="tac_r">
+						<span class="i" id="l_rgfwl">0</span>
+						<div class="div_h5"></div>
+						<span class="cn">人工服务量</span><br /> <span class="en">Artificial
+							service</span>
+					</div>
+					<div class="tac_r">
+						<span class="i" id="l_ldzl">0</span>
+						<div class="div_h5"></div>
+						<span class="cn">来电总量</span><br /> <span class="en">Total
+							calls</span>
+					</div>
+					<div class="tac_r">
+						<span class="is" id="l_jtl">0</span>
+						<div class="div_h5"></div>
+						<span class="cn">接通率</span><br /> <span class="en">Connection
+							rate</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="i1_cen" class="cen_4">
+			<div class="chunk">
+				<div>
+					<div class="title">
+						<span>话务总量</span> <label>Monthly Voice Traffic</label>
+					</div>
+					<div class="mvt_num" id="c_hwzl">0</div>
+				</div>
+				<div>
+					<div class="title">
+						<span>日来电总量</span> <label>Daily Incoming Calls</label>
+					</div>
+					<div class="dic">
+						<span class="i" id="c_zdyyfwl">0</span>
+						<div class="div_h45"></div>
+						<span class="cn">自动语音服务量</span><br /> <span class="en">Volume
+							of Automatlc Voice Response Service</span>
+					</div>
+					<div class="dic">
+						<span class="i" id="c_rgfwl">0</span>
+						<div class="div_h45"></div>
+						<span class="cn">人工服务量</span><br /> <span class="en">Volume
+							of Operator Service</span>
+					</div>
+					<div class="dic">
+						<span class="is" id="c_fqs">0</span>
+						<div class="div_h45"></div>
+						<span class="cn">放弃数</span><br /> <span class="en">Numbers
+							of Given-up Calls</span>
+					</div>
+				</div>
+				<div>
+					<div class="title_r">
+						<div class="img">
+							<img src="../static/img/r_1.png" th:src="@{/img/r_1.png}" />
+						</div>
+						<div class="tit">
+							<span>接通率</span> <label>Connection Rate</label>
+						</div>
+						<div class="img">
+							<img src="../static/img/r_2.png" th:src="@{/img/r_2.png}" />
+						</div>
+						<div class="tit">
+							<span>满意率</span> <label>Satisfaction rate</label>
+						</div>
+					</div>
+					<div class="tb">
+						<div style="width: 48%; height: 100%; border: none; float: left;">
+							<div id="map_1_jtl"
+								style="width: 100%; height: 300px; margin-top: -40px;"></div>
+						</div>
+						<div style="width: 48%; height: 100%; border: none; float: right;">
+							<div id="map_1_myl"
+								style="width: 100%; height: 300px; margin-top: -40px;"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="i4_cen" style="display: none;" class="container_cen">
+			<div class="cen_4_h2"
+				style="border: 1px solid #d0d7f9; width: 100%; height: 655px; margin-bottom: 20px;">
+				<div class="chunk">
+					<div class="title">
+						<span>问题类型</span> <label>Question Types</label>
+					</div>
+					<div style="width: 100%; height: auto;">
+						<div id="graph_4_class"
+							style="width: 100%; height: 600px; margin-top: -50px;"></div>
+					</div>
+				</div>
+			</div>
+			<div class="cen_4_h3">
+				<div class="chunk">
+					<div class="title">
+						<span id="ino_id">发票管理</span> <label></label>
+					</div>
+					<div class="tb_line">
+						<div id="line_4_ino"
+							style="width: 100%; height: 250px; margin-top: -50px;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="i1_right1" class="right_3_h4">
+			<div class="chunk">
+				<div class="title">
+					<span>来源渠道</span> <label>Sources</label>
+				</div>
+				<div style="width: 100%; height: 250px;" th:id="pie_lyqd_1"></div>
+				<div class="sou_b">
+					<span>电话<label>Phone</label></span> <span>语音留言<label>Voice
+							message</label></span> <span>其他<label>Others</label></span><br /> <img
+						src="../static/img/s_1.png" th:src="@{/img/s_1.png}"
+						style="margin-left: 25px;" /> <img src="../static/img/s_2.png"
+						th:src="@{/img/s_2.png}"
+						style="margin-left: 100px; margin-right: 133px;" /> <img
+						src="../static/img/s_3.png" th:src="@{/img/s_3.png}" />
+				</div>
+			</div>
+		</div>
+		<div id="video_id_1" class="right_3_h4" style="display: none">
+			<div class="chunk">
+				<div class="title">
+					<span>胶州路工作场景</span><br> <label>Jiao Zhou Road Work Display</label>
+				</div>
+				<video src="../static/video/jiaozhou.mp4"
+					th:src="@{/video/jiaozhou.mp4}" width="100%" height="80%" loop=true
+					autoplay=true> 该浏览器不支持视频显示，请更换浏览器。
+				</video>
+			</div>
+		</div>
+		<div id="video_id_2" class="right_3_h4"
+			style="display: none; margin-top: 45px;">
+			<div class="chunk">
+				<div class="title">
+					<span>九江路工作场景</span><br> <label>Jiu Jiang Road Work
+						Display</label>
+				</div>
+				<video src="../static/video/jiujiang.mp4"
+					th:src="@{/video/jiujiang.mp4}" width="100%" height="80%" loop=true
+					autoplay=true> 该浏览器不支持视频显示，请更换浏览器。
+				</video>
+			</div>
+		</div>
+		<div id="i1_right2" class="right_3_h4" style="margin-top: 45px;">
+			<div class="chunk">
+				<div class="title" style="margin-bottom: 0px;">
+					<span>业务类别</span> <label>Category</label>
+				</div>
+				<ul class="cat_ul">
+					<li>
+						<div class="img">
+							<img src="../static/img/c_6.png" th:src="@{/img/c_6.png}" />
+						</div>
+						<div class="l_tit">
+							咨询<label>Consulvtation</label><span class="r" name="r_con">100%</span>
+						</div>
+
+					</li>
+					<li>
+						<div class="img">
+							<img src="../static/img/c_1.png" th:src="@{/img/c_1.png}" />
+						</div>
+						<div class="l_tit">
+							违纪举报<label>Disciplinary Offence Tip-offs</label><span class="r"
+								name="r_dis">100%</span>
+						</div>
+					</li>
+					<li>
+						<div class="img">
+							<img src="../static/img/c_2.png" th:src="@{/img/c_2.png}" />
+						</div>
+						<div class="l_tit">
+							查询<label>Inquiry</label><span class="r" name="r_inq">100%</span>
+						</div>
+					</li>
+					<li>
+						<div class="img">
+							<img src="../static/img/c_4.png" th:src="@{/img/c_4.png}" />
+						</div>
+						<div class="l_tit">
+							涉税举报<label>Tax-related Tip-offs</label><span class="r"
+								name="r_tax">100%</span>
+						</div>
+					</li>
+					<li>
+						<div class="img">
+							<img src="../static/img/c_5.png" th:src="@{/img/c_5.png}" />
+						</div>
+						<div class="l_tit">
+							投诉<label>Complaints</label><span class="r" name="r_com">100%</span>
+						</div>
+					</li>
+					<li>
+						<div class="img">
+							<img src="../static/img/c_3.png" th:src="@{/img/c_3.png}" />
+						</div>
+						<div class="l_tit">
+							意见建议<label>Suggestions</label><span class="r" name="r_sug">100%</span>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+
+		<div id="i2_cen1" style="display: none;" class="cen_7_h3">
+			<div class="chunk">
+				<div class="title">
+					<span>来电总量</span> <label>Total calls</label>
+				</div>
+				<div class="tb_line">
+					<div id="line_2_total"
+						style="width: 100%; height: 250px; margin-top: -50px;"></div>
+				</div>
+			</div>
+		</div>
+		<div id="i2_cen2" style="display: none;" class="cen_7_h3">
+			<div class="chunk">
+				<div class="title">
+					<span>接通率</span> <label>Through Rate</label>
+				</div>
+				<div class="tb_line">
+					<div id="line_2_thr"
+						style="width: 100%; height: 250px; margin-top: -50px;"></div>
+				</div>
+			</div>
+		</div>
+		<div id="i2_cen3" style="display: none;" class="cen_7_h3">
+			<div class="chunk">
+				<div class="title">
+					<span>满意率</span> <label>Satisfaction rate</label>
+				</div>
+				<div class="tb_line">
+					<div id="line_2_sat"
+						style="width: 100%; height: 250px; margin-top: -50px;"></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="i3_left" style="display: none;" class="left_26">
+			<div class="chunk">
+				<div>
+					<div class="title">
+						<span>全国12366纳税服务热线</span>
+						<div style="height: 15px;">&nbsp;</div>
+						<label>12366 NATIOANAL TAX SERVICE HOTLINE</label>
+					</div>
+				</div>
+				<div>
+					<div class="title">
+						<span>话务总量</span> <label>Total Voice Traffic</label>
+					</div>
+					<div class="mvt_num" id="qg_hwzl">0</div>
+				</div>
+				<div>
+					<div class="title">
+						<span>人工服务量</span> <label>Operator Service Traffic</label>
+					</div>
+					<div class="mvt_num" id="qg_rgfw">0</div>
+				</div>
+				<div>
+
+					<div class="title">
+						<span>接通率</span> <label>Connection Rate</label>
+					</div>
+					<div class="tb_3_pie">
+						<div id="pie_3_l_con"
+							style="width: 100%; height: 400px; margin-top: -70px;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="i3_cen" style="display: none;" class="cen_4">
+			<div class="chunk">
+				<div id="map_china_3" style="width: 100%; height: 100%;"></div>
+			</div>
+		</div>
+		<div id="i3_right" style="display: none;" class="right_26">
+			<div class="chunk">
+				<div>
+					<div class="title">
+						<span>上海12366纳税服务热线</span>
+						<div style="height: 15px;">&nbsp;</div>
+						<label>12366 SHANGHAI TAX SERVICE HOTLINE</label>
+					</div>
+				</div>
+				<div>
+					<div class="title">
+						<span>话务总量</span> <label>Total Voice Traffic</label>
+					</div>
+					<div class="mvt_num" id="sh_hwzl">0</div>
+				</div>
+				<div>
+					<div class="title">
+						<span>人工服务量</span> <label>Operator Service Traffic</label>
+					</div>
+					<div class="mvt_num" id="sh_rgfw">0</div>
+				</div>
+				<div>
+
+					<div class="title">
+						<span>接通率</span> <label>Connection Rate</label>
+					</div>
+					<div class="tb_3_pie">
+						<div id="pie_3_r_con"
+							style="width: 100%; height: 400px; margin-top: -70px;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div id="i5_cen1" style="display: none;" class="cen_7_1">
+			<div class="chunk">
+				<div class="userinfo">
+					<img id="tx" src="../static/img/c_1.png" th:src="@{/img/c_1.png}"
+						class="tx" />
+					<div class="code">
+						<span id="gh"></span> <img class="wjx"
+							src="../static/img/wujiao.svg" th:src="@{/img/wujiao.svg}" /> <img
+							class="wjx" src="../static/img/wujiao.svg"
+							th:src="@{/img/wujiao.svg}" /> <img class="wjx"
+							src="../static/img/wujiao.svg" th:src="@{/img/wujiao.svg}" /> <img
+							class="wjx" src="../static/img/wujiao.svg"
+							th:src="@{/img/wujiao.svg}" /> <img class="wjx"
+							src="../static/img/wujiao.svg" th:src="@{/img/wujiao.svg}" />
+						<div class="info">
+							<h4 style="width: 400px;">
+								组别/Group:&nbsp;<label id="zb"></label>
+							</h4>
+							<h4 style="width: 550px;">
+								政治面貌/Political Status:&nbsp;<label id="zzmm"></label>
+							</h4>
+						</div>
+						<div class="info">
+							<h4 style="width: 400px;">
+								学历/Education:&nbsp;<label id="xl"></label>
+							</h4>
+							<h4 style="width: 550px;">
+								工作年限/Years of Working:&nbsp;<label id="gznx"></label>年
+							</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="i5_cen2" style="display: none;" class="cen_7_2">
+			<div class="chunk">
+				<div class="left">
+					<div class="title stats">
+						<span>人工服务量</span> <label>Operator Service Traffic</label> <label
+							class="total" id="c_rgfwl">0</label>
+					</div>
+					<div class="title stats">
+						<span>工单数量</span> <label>Records of Call Answerlng</label> <label
+							class="total" id="c_gdsl">0</label>
+					</div>
+					<div>
+						<div class="dic">
+							<span class="i" id="c_zxgd">0</span>
+							<div class="div_h45"></div>
+							<span class="cn">咨询工单</span><br /> <span class="en">Records
+								of Consultation</span>
+						</div>
+						<div class="dic">
+							<span class="i" id="c_tsjbgd">0</span>
+							<div class="div_h45"></div>
+							<span class="cn">投诉举报工单</span><br /> <span class="en">Records
+								of Complaints</span>
+						</div>
+						<div class="dic">
+							<span class="is" id="c_wfwjgd">0</span>
+							<div class="div_h45"></div>
+							<span class="cn">违法违纪工单</span><br /> <span class="en">Records
+								of Law and Discipline</span>
+						</div>
+					</div>
+					<div>
+						<div class="dic">
+							<span class="i" id="c_dlsc">0`</span>
+							<div class="div_h45"></div>
+							<span class="cn">登录时长</span><br /> <span class="en">Login
+								Time</span>
+						</div>
+						<div class="dic">
+							<span class="i" id="c_pjthsc">0`</span>
+							<div class="div_h45"></div>
+							<span class="cn">平均通话时长</span><br /> <span class="en">The
+								Average Call Duration</span>
+						</div>
+						<div class="dic">
+							<span class="is" id="c_pjhhclsc">0`</span>
+							<div class="div_h45"></div>
+							<span class="cn">平均话后处理时长</span><br /> <span class="en">Average
+								After Call Work Time</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="i5_cen3" style="display: none;" class="cen_7_3">
+			<div class="chunk">
+				<div class="right" style="margin-top: 30px;">
+					<div class="title">
+						<span>服务评价</span> <label>Service evaluation</label>
+					</div>
+					<ul class="cen_ul">
+						<li>
+							<div class="img">
+								<img src="../static/img/my_01.svg" th:src="@{/img/my_01.svg}" />
+							</div>
+							<div class="l_tit">
+								满意率<label>Satisfaction Rate</label><span class="r" id="r_myl">0%</span>
+							</div>
+
+						</li>
+						<li>
+							<div class="img">
+								<img src="../static/img/my_02.svg" th:src="@{/img/my_02.svg}" />
+							</div>
+							<div class="l_tit">
+								非常满意<label>Very satished</label><span class="r" id="r_clmy">0</span>
+							</div>
+						</li>
+						<li>
+							<div class="img">
+								<img src="../static/img/my_03.svg" th:src="@{/img/my_03.svg}" />
+							</div>
+							<div class="l_tit">
+								满意<label>Satished</label><span class="r" id="r_my">0</span>
+							</div>
+						</li>
+						<li>
+							<div class="img">
+								<img src="../static/img/my_04.svg" th:src="@{/img/my_04.svg}" />
+							</div>
+							<div class="l_tit">
+								一般<label>General</label><span class="r" id="r_yb">0</span>
+							</div>
+						</li>
+						<li>
+							<div class="img">
+								<img src="../static/img/my_05.svg" th:src="@{/img/my_05.svg}" />
+							</div>
+							<div class="l_tit">
+								不满意<label>Unsatisfied</label><span class="r" id="r_bmy">0</span>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="footer">
+		<div class="img">
+			<img src="../static/img/footer_1.png" th:src="@{/img/footer_1.png}"
+				width="26" height="26" />
+		</div>
+		<span>&nbsp;&nbsp;<label id="date"></label>&nbsp;&nbsp;<label
+			id="week"></label>&nbsp;&nbsp;<label id="time"></label>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;数据截止日期：<label
+			id="endDate"></label></span>
+	</div>
+</body>
+</html>

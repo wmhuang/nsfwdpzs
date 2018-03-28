@@ -1,0 +1,259 @@
+<div
+	style="width: 100%; height: 600px; float: left; position: relative;">
+	<div id="graph_4_class"
+		style="width: 700px; height: 600px; margin-top: -50px;"></div>
+	<div id="questionTypeRanksTable" class="ranks"
+		style="background: transparent; position: absolute; right: 0px; top: 0px; z-index: 1;"></div>
+</div>
+<script th:inline="javascript">
+	var datas = new Array();
+	var jsons;
+	datas.push({
+		"name" : "问题类型",
+		"symbolSize" : 50,
+		"draggable" : "true",
+		"value" : 27,
+		"label" : {
+			normal : {
+				show : false,
+				formatter : "{b}\n{c}",
+				textStyle : {
+					fontSize : '15',
+					fontWeight : 'bold'
+				}
+			}
+		},
+		"itemStyle" : {
+			normal : {
+				color : "#009612"
+			}
+		}
+	});
+	var links = new Array();
+	var cats = new Array();
+	var json1 = new Array();
+	var colors = [ '#d48265', '#9c27b0', '#009688', '#ca8622', '#009612',
+			'#c71e93', '#571ec7', '#1ebfc7', '#c4c71e', '#c7641e'];
+	var map_colo = [];
+	var a = 0;
+	var bool = true;
+	$.ajax({
+		type : "get",
+		url : "http://" + window.location.host + "/nfpt/four/getWtlx",
+		async : false,
+		data : {},
+		dataType : "json",
+		success : function(json) {
+			jsons = json;
+			getRanksTable(json);
+			for (var i = 0; i < json.length; i++) {
+				bool = true;
+				for (var s = 0; s < json1.length; s++) {
+					if (json[i].YJMC == json1[s]) {
+						bool = false;
+					}
+				}
+				if (bool) {
+					json1.push(json[i].YJMC);
+					datas.push({
+						"name" : json[i].YJMC,
+						"symbolSize" : getInt(800),
+						"category" : json[i].YJMC,
+						"draggable" : "true",
+						"value" : json[i].SL,
+						"label" : {
+							normal : {
+								show : true,
+								formatter : "{b}\n{c}",
+								textStyle : {
+									fontSize : '15',
+									fontWeight : 'bold'
+								}
+							}
+						},
+						"itemStyle" : {
+							normal : {
+								color : colors[a]
+							}
+						}
+					});
+					links.push({
+						"source" : "问题类型",
+						"target" : json[i].YJMC
+					});
+					cats.push({
+						"name" : json[i].YJMC
+					});
+					map_colo.push({
+						"name" : json[i].YJMC,
+						"value" : colors[a]
+					});
+					++a;
+				} else {
+					for (var s = 0; s < datas.length; s++) {
+						if (json[i].YJMC == datas[s].name) {
+							datas[s].value = parseInt(datas[s].value)
+									+ parseInt(json[i].SL);
+						}
+					}
+				}
+			}
+
+			for (var i = 0; i < json.length; i++) {
+				datas.push({
+					"name" : json[i].EJMC,
+					"symbolSize" : getInt(2),
+					"category" : json[i].YJMC,
+					"draggable" : "true",
+					"value" : json[i].SL,
+					"label" : {
+						normal : {
+							show : true,
+							formatter : "{b}_{c}",
+							position : 'top',
+							color : '#fff',
+							textStyle : {
+								fontSize : '20',
+								fontWeight : 'bold'
+							}
+						}
+					},
+					"itemStyle" : {
+						normal : {
+							color : getcolor(json[i].YJMC)
+						}
+					}
+				});
+				links.push({
+					"source" : json[i].YJMC,
+					"target" : json[i].EJMC
+				});
+				cats.push({
+					"name" : json[i].EJMC
+				});
+			}
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+
+		}
+	});
+	function getRanksTable(json) {
+		
+		var m= getTop5Color(json);
+		
+		var tableHtml = "<table>" + "<h1>TOP5排行榜</h1>"
+				+ "<tr style='background:rgb(92,149,254);font-weight:bold;'>"
+				+ "<td class='tdType'>问题类型</td>"
+				+ "<td class='tdCount' style='text-align:center'>数量</td>"
+				+ "<td class='tdCount' style='text-align:center'>占比</td>"
+				+ "</tr>";
+
+		var total = 0;
+		for (var j = 0; j < json.length; j++) {
+			total += json[j].SL;
+		}
+		for (var i = 0; i < json.length; i++) {
+			var yjmc = json[i].YJMC;
+			if (i > 4) {
+				//控制排行榜的数量，4代表前5
+				continue;
+			}
+			var questionName = json[i].EJMC;
+			var questionCount = json[i].SL;
+			var questionPersent1 = json[i].SL / total;
+			var questionPersent2 = questionPersent1 * 100;
+
+			questionPersent2 = questionPersent2.toFixed(2);
+
+			var tableTrHtml = "<tr style='background:"+m.get(yjmc)+";'>"
+					+ "<td class='tdType'><span>"
+					+ questionName
+					+ "</span></td>\n"
+					+ "<td class='tdCount'>"
+					+ questionCount
+					+ "</td>\n"
+					+ "<td class='tdCount'>"
+					+ questionPersent2
+					+ "%</td>"
+					+ "</tr>";
+			tableHtml += tableTrHtml;
+		}
+		tableHtml += "</table>";
+		var rankDiv = document.getElementById('questionTypeRanksTable');
+		rankDiv.innerHTML = tableHtml;
+	}
+	
+	function getTop5Color(json){
+		var m  = new Map();
+		var colors=["rgba(212,130,101,1)","rgba(156,39,176,1)","rgba(0,150,136,1)"];
+		var currentColor=0;
+		for(var i=0;i<json.length;i++){
+			var YJMC= json[i].YJMC;
+			var color = m.get(YJMC);
+			if(color==null){
+				m.set(YJMC,colors[currentColor]);
+				currentColor++;
+			}
+		}
+		return m;
+	} 
+	
+	function getcolor(n) {
+		for (var i = 0; i < map_colo.length; i++) {
+			if (n == map_colo[i].name) {
+				return map_colo[i].value;
+			}
+		}
+	}
+	function getInt(i) {
+		if (i > 100) {
+			return fRandomBy(80, 100);
+		} else if (i < 5) {
+			return fRandomBy(40, 60);
+		} else {
+			return i;
+		}
+
+	}
+	function fRandomBy(under, over) {
+		switch (arguments.length) {
+		case 1:
+			return parseInt(Math.random() * under + 1);
+		case 2:
+			return parseInt(Math.random() * (over - under + 1) + under);
+		default:
+			return 0;
+		}
+	}
+
+	option = {
+		backgroundColor : '',
+		tooltip : {},
+		animationDuration : 3000,
+		animationEasingUpdate : 'quinticInOut',
+		series : [ {
+			name : '问题类型',
+			type : 'graph',
+			layout : 'force',
+
+			force : {
+				repulsion : 1000
+			},
+			data : datas,
+			links : links,
+			categories : cats,
+			focusNodeAdjacency : true,
+			roam : false,
+			lineStyle : {
+				normal : {
+					color : 'source',
+					curveness : 0,
+					type : "solid"
+				}
+			}
+		} ]
+	};
+
+	var chart = echarts.init(document.getElementById('graph_4_class'));
+	chart.setOption(option);
+</script>

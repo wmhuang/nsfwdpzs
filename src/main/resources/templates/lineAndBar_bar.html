@@ -1,0 +1,98 @@
+<div id="bar6"
+	style="width: 1932px; height: 420px; margin-top: -50px;"></div>
+<script th:inline="javascript">
+	var key = [];
+	var ldzl = [];
+	$.ajax({
+		type : "get",
+		url : "http://" + window.location.host + "/nfpt/six/getLdzlBYUnitToday",
+		async : false,
+		data : {},
+		dataType : "json",
+		success : function(data) {
+			v = data.value;
+			for (var i = 0; i < data.length; i++) {
+				key.push(data[i].UNITNAME);
+				ldzl.push(data[i].LDZL);
+			}
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+
+		}
+	});
+	var option = {
+		//backgroundColor : '',
+		color:['#3398D8'],
+
+		tooltip : {
+			trigger : 'axis',
+			axisPointer:{
+			    type:'shadow'
+			}
+		},
+		grid:{
+		    left:'3%',
+			right:'4%',
+			bottom:'20%',
+			containLabel:true
+		},
+
+		xAxis : [ {
+			type : 'category',
+			data : key,
+			axisTick:{
+			  alignWithLabel:true
+			},
+            axisLine : {
+                lineStyle : {
+                    type : 'solid',
+                    color : '#fff',//左边线的颜色
+                    width : '2'//坐标线的宽度
+                }
+            },
+            axisLabel : {
+			    interval:0,
+				//rotate:45,//左边倾斜角度
+                textStyle : {
+                    color : '#fff',//坐标值得具体的颜色
+                    fontSize : '30',
+                    fontWidth : 'bold'
+                }
+            }
+		} ],
+		yAxis : [ {
+			type : 'value',
+            axisLine : {
+                lineStyle : {
+                    type : 'solid',
+                    color : '#fff',//左边线的颜色
+                    width : '2'//坐标线的宽度
+                }
+            },
+            axisLabel : {
+                formatter : '{value} ',
+                textStyle : {
+                    color : '#fff',//坐标值得具体的颜色
+                    fontSize : '20',
+                    fontWidth : 'bold'
+                }
+            }
+		} ],
+		series : [ {
+			name : '日来电总量',
+			type : 'bar',
+			barWidth:'60%',
+			data : ldzl,
+			label:{normal:{show : true,
+                formatter : '{c}',
+                position : 'top',
+                textStyle : {
+                    color : "#fbff05",
+                    fontSize : '15'
+                }}}
+		} ]
+	};
+
+	var chart = echarts.init(document.getElementById('bar6'));
+	chart.setOption(option);
+</script>

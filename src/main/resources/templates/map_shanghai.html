@@ -1,0 +1,161 @@
+﻿
+<div id="map_shanghai" style="width:100%;height:340px;"></div>
+<script  th:inline="javascript">
+    var geoCoordMap = {
+        '黄浦区':[121.490317,31.222771],
+        '徐汇区':[121.43752,31.179973],
+        '长宁区':[121.4222,31.218123],
+        '静安区':[121.448224,31.229003],
+        '普陀区':[121.392499,31.241701],
+        '闸北区':[121.465689,31.25318],
+        '虹口区':[121.491832,31.26097],
+        '杨浦区':[121.522797,31.270755],
+        '闵行区':[121.375972,31.111658],
+        '宝山区':[121.489934,31.398896],
+        '嘉定区':[121.250333,31.383524],
+        '浦东新区':[121.567706,31.245944],
+        '金山区':[121.330736,30.724697],
+        '松江区':[121.223543,31.03047],
+        '青浦区':[121.113021,31.151209],
+        '奉贤区':[121.458472,30.912345],
+        '崇明区':[121.397516,31.626946]
+    };
+
+    //根据data得到放射光标效果图。如果起始城市没有值的话，就只显示目的城市
+    var convertData1 = function (data) {
+        var res = [];
+        for (var i = 0; i < data.length; i++) {
+            var geoCoord = geoCoordMap[data[i].name];
+            if (geoCoord)
+            {
+                res.push({
+                    name: data[i].name,
+                    value: geoCoord.concat(data[i].value)
+                });
+            }
+        }
+        return res;
+    };
+
+    //初始化显示数据
+    var data = [
+        { name: '崇明区',value:130},
+        { name: '黄浦区',value:80},
+        { name: '徐汇区',value:120},
+        {name:'浦东新区',value:120}
+
+    ];
+
+    var myChart = echarts.init(document.getElementById('map_shanghai'));
+    option = {
+        //设置背景颜色
+        backgroundColor: '',
+        //设置图片标题、子标题、文本颜色等等
+        title: {
+            text: '',
+            subtext: '',
+            left: 'center',
+            textStyle: {
+                color: '#fff'
+            }
+        },
+        tooltip : {
+            trigger: 'item',formatter: "{b}"
+        },
+        geo: {
+            map: 'shanghai',
+            label: {
+                emphasis: {
+                    show: true
+                }
+            },
+            scaleLimit:{min:1.1,max:1.1},
+            itemStyle: {
+                normal: {
+                    areaColor: '#10075f',
+                    borderColor: '#fff',
+                    label:{show:false}
+                },
+                emphasis: {
+                    areaColor: '#0f00f7',
+                    label:{show:false}
+                }
+            },
+            //是否可以点击鼠标、滚轮缩放
+            roam: false,
+        },
+        series :
+            [
+                {
+                    name: 'city',
+                    type: 'effectScatter',
+                    coordinateSystem: 'geo',
+                    rippleEffect: {
+                        brushType: 'stroke'
+                    },
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'right',
+                            textStyle:{fontWeight:"bold"},
+                            formatter: '{b}'
+                        }
+
+                    },
+                    symbolSize: function (val) {
+                        return val[2] / 8;
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#F4E925'
+                        }
+                    },
+                    data: convertData1(data)
+                },
+            ]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+    <!--随机显示备用start-->
+    //定义数据
+    var dataArray=new Array();
+    dataArray[0]=[{name:'徐汇区',value:100}];
+    dataArray[1]=[{name:'黄浦区',value:100}];
+    dataArray[2]=[{name:'徐汇区',value:100}];
+    dataArray[3]=[{name:'长宁区',value:100}];
+    dataArray[4]=[{name:'静安区',value:100}];
+    dataArray[5]=[{name:'普陀区',value:100}];
+    dataArray[6]=[{name:'闸北区',value:100}];
+    dataArray[7]=[{name:'虹口区',value:100}];
+    dataArray[8]=[{name:'杨浦区',value:100}];
+    dataArray[9]=[{name:'闵行区',value:100}];
+    dataArray[10]=[{name:'宝山区',value:100}];
+    dataArray[11]=[{name:'嘉定区',value:100}];
+    dataArray[12]=[{name:'浦东新区',value:100}];
+    dataArray[13]=[{name:'金山区',value:100}];
+    dataArray[14]=[{name:'松江区',value:100}];
+    dataArray[15]=[{name:'青浦区',value:100}];
+    dataArray[16]=[{name:'奉贤区',value:100}];
+    dataArray[17]=[{name:'崇明区',value:100}];
+
+    function GetRandomNum(Min,Max)
+    {
+        var Range = Max - Min;
+        var Rand = Math.random();
+        return(Min + Math.round(Rand * Range));
+    }
+    //一直要执行的函数
+    function nocease(){
+        //随机取1-5
+        data=[];
+        for(var i=0;i<GetRandomNum(1,4);i++)
+        {
+            data.push(dataArray[GetRandomNum(0,17)][0]);
+        }
+        var option = myChart.getOption();
+        option.series[0].data = convertData1(data);
+        myChart.setOption(option);
+    }
+    setInterval("nocease()","5000");
+    <!--随机显示备用end-->
+</script>

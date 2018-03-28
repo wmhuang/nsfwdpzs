@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Hello Spring Boot!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="js/echarts.js"></script>
+    <script src="js/china.js"></script>
+</head>
+<body>
+
+<div id="main" style="width: 1350px;height: 600px;"></div>
+<script>
+    alert("main="+document.getElementById('main'));
+    alert(echarts);
+    var chart = echarts.init(document.getElementById('main'));
+    chart.setOption({
+        series: [{
+            type: 'map',
+            map: 'china'
+        }]
+    });
+</script>	
+</body>
+</html>

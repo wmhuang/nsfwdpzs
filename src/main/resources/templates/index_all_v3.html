@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<!-- 页面切换 -->
+<link href="。。/static/css/simleSlider/slider.css"
+	th:href="@{/css/simleSlider/slider.css}" rel="stylesheet"
+	type="text/css">
+
+<script type="text/javascript" charset="utf-8"
+	src="。。/static/js/simleSlider/jquery-1.9.1.min.js"
+	th:src="@{/js/simleSlider/jquery-1.9.1.min.js}"></script>
+
+<script type="text/javascript" charset="utf-8"
+	src="。。/static/js/simleSlider/jquery-migrate-1.2.1.min.js"
+	th:src="@{/js/simleSlider/jquery-migrate-1.2.1.min.js}"></script>
+
+
+<script type="text/javascript" src="。。/static/js/simleSlider/transit.js"
+	th:src="@{/js/simleSlider/transit.js}"></script>
+<script type="text/javascript"
+	src="。。/static/js/simleSlider/touchSwipe.js"
+	th:src="@{/js/simleSlider/touchSwipe.js}"></script>
+<script type="text/javascript"
+	src="。。/static/js/simleSlider/simpleSlider.js"
+	th:src="@{/js/simleSlider/simpleSlider.js}"></script>
+<script type="text/javascript"
+	src="。。/static/js/simleSlider/backstretch.js"
+	th:src="@{/js/simleSlider/backstretch.js}"></script>
+
+<script type="text/javascript" src="。。/static/js/simleSlider/dicUtil.js"
+	th:src="@{/js/simleSlider/dicUtil.js}"></script>
+
+</head>
+ 
+<body style="overflow: hidden; margin: 0px;">
+
+	<div style="position: absolute; width: 100%; height: 100%;">
+	</div>
+
+	<div class='pagewrap'>
+		<div class='pageblock' id='fullscreen'>
+			<div class='slider'>
+
+				<div class='slide'>
+					<iframe  th:src="@{/view/three}" frameborder="0" width="100%" scrolling="no"></iframe>
+				</div>
+				<div class='slide'>
+					<iframe th:src="@{/view/one}" frameborder="0" width="100%" scrolling="no"></iframe>
+				</div>
+				<div class='slide'>
+					<iframe src=""  frameborder="0" width="100%"
+						scrolling="no"></iframe>
+				</div>
+				<div class='slide'>
+					<iframe src=""  frameborder="0" width="100%"
+						scrolling="no"></iframe>
+				</div>
+				<div class='slide'>
+					<iframe src=""  frameborder="0" width="100%"
+						scrolling="no"></iframe>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div style="position: absolute; right: 110px; top: 3px;">
+
+		<img id="fullScreen" src="../static/img/simleSlider/fullScreen.png"
+			th:src="@{/img/simleSlider/fullScreen.png}" style="cursor: pointer;"
+			title="全屏" onclick="changeScreen()" /> <img id="pause"
+			src="../static/img/simleSlider/pause.png"
+			th:src="@{/img/simleSlider/pause.png}" style="cursor: pointer;"
+			title="暂停" onclick="pauseChange()" /> <img id="play"
+			src="../static/img/simleSlider/start.png"
+			th:src="@{/img/simleSlider/start.png}"
+			style="cursor: pointer; display: none;" title="启动"
+			onclick="playChange()" />
+	</div>
+
+
+	<div class="changediv"
+		style="position: absolute; left: 0px; top: 0px; height: 600px; width: 50px;">
+		<img class="changebtn" src="../static/img/simleSlider/prev.png"
+			th:src="@{/img/simleSlider/prev.png}"
+			style="cursor: pointer; position: absolute; left: 0px;"
+			onclick="prev()" />
+	</div>
+
+
+	<div class="changediv"
+		style="position: absolute; right: 0px; top: 0px; height: 600px; width: 50px;">
+		<img class="changebtn" src="../static/img/simleSlider/next.png"
+			th:src="@{/img/simleSlider/next.png}"
+			style="cursor: pointer; position: absolute; right: 0px;"
+			onclick="next()" />
+	</div>
+
+
+	<script type='text/javascript'>
+
+		var curTabIndex = 0;
+		var prevTabIndex = 6;
+		var nextTabIndex = 1;
+
+		var systemDate = new Date();
+		//页面切换时间
+		var pageCycle = 10000;
+		var busTypes = [ "three","one", "two", "four", "five" ];
+
+		var curFrame = null;
+
+		//切换页面
+		var frames = $(".slider iframe");
+
+		window.onresize = function() {
+			changeWindow();
+		};
+
+		//切换器对象
+		var slider = null;
+
+		$(function() {
+
+			changeWindow();
+
+			//页面切换
+			$(".slider").simpleSlider({
+				slides : '.slide', // The name of a slide in the slidesContainer
+				swipe : true, // Add possibility to Swipe > note that you have to include touchSwipe for this
+				slideTracker : false, // Add a UL with list items to track the current slide
+				slideTrackerID : 'slideposition', // The name of the UL that tracks the slides
+				slideOnInterval : true, // Slide on interval
+				interval : pageCycle, // Interval to slide on if slideOnInterval is enabled
+				animateDuration : 2000, // Duration of an animation
+				animationEasing : 'ease',
+				pauseOnHover : false
+			// Pause when user hovers the slide container
+			});
+
+			slider = $(".slider").data("simpleslider");
+
+			$(".slider").on("beforeSliding", function(event) {
+
+				curFrame = frames[curTabIndex].contentWindow;
+
+				//设置当前时间
+				/* if (frames[curTabIndex].src.indexOf("one") != -1) {
+					curFrame.changeTimeLabel(systemDate);
+				} */
+
+			});
+
+			curFrame = frames[curTabIndex].contentWindow;
+
+			$(".slider")
+					.on(
+							"afterSliding",
+							function(event) {
+
+								curTabIndex = event.newSlide;
+
+								curFrame = frames[curTabIndex].contentWindow;
+
+								prevTabIndex = (curTabIndex + 6)
+										% busTypes.length;
+
+								nextTabIndex = (curTabIndex + 1)
+										% busTypes.length;
+
+								//console.info("curTabIndex:" + curTabIndex + ",prevTabIndex:" + prevTabIndex);
+
+								if (isHand) {
+
+									/*
+									var str = frames[curTabIndex].src;
+									var num = str.length - str.lastIndexOf("largeScreen") - "largeScreen".length;
+									if(num != 0){
+										return;
+									}
+									 */
+
+									if (curTabIndex == 0) {
+										frames[curTabIndex].src = "three";
+									} else {
+										frames[curTabIndex].src = busTypes[curTabIndex];
+									}
+
+									isHand = false;
+								}
+
+								//前一个清空
+								if (prevTabIndex != 0) {
+									frames[prevTabIndex].src = "";
+								}
+
+								//下一个赋值
+								if (nextTabIndex != 0) {
+									frames[nextTabIndex].src = busTypes[nextTabIndex];
+								}
+
+							});
+
+		});
+
+		function changeWindow() {
+			var totalH = document.documentElement.clientHeight;
+			var totalW = document.documentElement.clientWidth - 20;
+
+			$(".changebtn").css("top", totalH / 2);
+
+			$(".changediv").height(totalH);
+
+			frames.height(totalH);
+		}
+
+		//左右图片
+
+		$(".changebtn").hide();
+
+		$(".changediv").hover(function() {
+			$(".changebtn").show();
+		}, function() {
+			$(".changebtn").hide();
+		});
+
+		//到首页
+		function toHomePage() {
+			slider.nextSlide(0);
+
+			$(".slider iframe:gt(1)").attr("th:src", "");
+
+			pause();
+		}
+
+		//到业务页面
+		var isHand = false;
+		function toBusPage(pageIndex) {
+			slider.nextSlide(pageIndex);
+			isHand = true;
+
+			pause();
+		}
+
+		//前一个
+		function prev() {
+			slider.nextSlide(prevTabIndex);
+			isHand = true;
+
+			pause();
+		}
+
+		//下一个
+		function next() {
+			slider.nextSlide(nextTabIndex);
+
+			pause();
+		}
+
+		//暂停
+		var isPause = false;
+		function pauseChange() {
+
+			$("#pause").hide();
+			$("#play").show();
+
+			slider.pauseSlide();
+			isPause = true;
+		}
+
+		//启动
+		function playChange() {
+
+			$("#pause").show();
+			$("#play").hide();
+
+			slider.startSlide();
+			isPause = false;
+		}
+
+		function pause() {
+			if (isPause) {
+				slider.pauseSlide();
+			}
+		}
+
+		//全屏
+		function changeScreen() {
+			var el = document.documentElement;
+			var rfs = el.requestFullScreen || el.webkitRequestFullScreen
+					|| el.mozRequestFullScreen || el.msRequestFullScreen;//定义不同浏览器的全屏API
+			if (typeof rfs != "undefined" && rfs) {
+				rfs.call(el);
+			} else if (typeof window.ActiveXObject != "undefined") {
+				var wscript = new ActiveXObject("WScript.Shell");
+				if (wscript != null) {
+					wscript.SendKeys("{F11}");
+				}
+			}
+
+			pause();
+		}
+
+	</script>
+</body>
+</html>

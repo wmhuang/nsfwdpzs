@@ -1,0 +1,571 @@
+.div_h5 {
+	height: 5px;
+}
+
+.div_h45 {
+	height: 25px;
+}
+
+.mvt_num {
+	font-size: 56px;
+	color: #fff;
+	font-family: impact;
+	text-align: center;
+	background: url(../img/m_1.png);
+	height: 100px;
+	margin-bottom: 56px;
+	padding-top: 30px;
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+.dvt_num {
+	font-size: 56px;
+	color: #fff;
+	float: right;
+	font-family: impact;
+	text-align: center;
+	width: 100px;
+	height: 100%;
+	margin-right: 160px;
+}
+
+.s_map {
+	width: 400px;
+	float: left;
+	height: 350px;
+}
+
+.a_map {
+	width: 400px;
+	float: left;
+	height: 350px;
+}
+
+.tac_r {
+	text-align: center;
+	color: #fff;
+	margin-bottom: 5px;
+}
+
+.tac_r .i {
+	font-size: 35px;
+	color: #1094f6;
+	font-family: fantasy;
+}
+
+.tac_r .ia {
+	font-size: 35px;
+	color: #1094f6;
+	font-family: fantasy;
+}
+
+.tac_r .is {
+	font-size: 35px;
+	font-family: fantasy;
+	color: #bbbbbb;
+}
+
+.tac_r .isa {
+	font-size: 35px;
+	font-family: fantasy;
+	color: #bbbbbb;
+}
+
+.tac_r .cn {
+	font-size: 23px;
+}
+
+.tac_r .en {
+	font-size: 12px;
+}
+
+.tac_r .cna {
+	font-size: 16px;
+}
+
+.tac_r .ena {
+	font-size: 12px;
+}
+
+.dic {
+	text-align: center;
+	color: #fff;
+	margin: 0px 1.5% 3% 1.5%;
+	float: left;
+	width: 30%;
+}
+
+.dic .i {
+	font-size: 43px;
+	color: #1094f6;
+	font-family: fantasy;
+}
+
+.dic .is {
+	font-size: 43px;
+	color: #bbbbbb;
+	font-family: fantasy;
+}
+
+.dic .cn {
+	font-size: 23px;
+}
+
+.dic .en {
+	font-size: 12px;
+}
+
+.title_r {
+	background: url(../img/m_1.png);
+	height: 69px;
+	margin-bottom: 29px;
+	color: #fff;
+	padding-top: 20px;
+	margin-top: 300px;
+	margin-left: 15px;
+	margin-right: 15px;
+	background-position: 0px 95px;
+}
+
+.title_r .img {
+	margin-left: 46px;
+	margin-right: 12px;
+	float: left;
+}
+
+.title_r .tit {
+	float: left;
+	margin-top: 6px;
+}
+
+.title_r span {
+	font-size: 27px;
+	margin-right: 10px;
+	font-weight: 600;
+}
+
+.title_r label {
+	font-size: 19px;
+	word-break: keep-all;
+	white-space: nowrap;
+}
+
+.title1_r {
+	background: url(../img/m_1.png);
+	height: 69px;
+	margin-bottom: 29px;
+	color: #fff;
+	padding-top: 20px;
+	margin-top: 250px;
+	margin-left: 15px;
+	margin-right: 15px;
+	background-position: 0px 95px;
+}
+
+.title1_r .img {
+	margin-left: 46px;
+	margin-right: 12px;
+	float: left;
+}
+
+.title1_r .tit {
+	float: left;
+	margin-top: -10px;
+}
+
+.title1_r span {
+	font-size: 27px;
+	margin-right: 10px;
+	font-weight: 600;
+}
+
+.title1_r label {
+	font-size: 19px;
+	word-break: keep-all;
+	white-space: nowrap;
+}
+
+.sou_b {
+	color: #fff;
+	margin-left: 40px;
+	margin-bottom: 29px;
+}
+
+.sou_b img {
+	margin-top: 20px;
+}
+
+.sou_b span {
+	font-size: 19px;
+	margin-right: 20px;
+}
+
+.sou_b label {
+	font-size: 13px;
+	margin-left: 5px;
+	font-family: cursive;
+}
+
+.cat_ul {
+	color: #fff;
+	list-style-type: none;
+	margin-left: -20px;
+}
+
+.cat_ul li {
+	border-top: 1px solid #1d3393;
+	height: 56px;
+}
+
+.cat_ul .img {
+	margin-top: 15px;
+	float: left;
+}
+
+.cat_ul .l_tit {
+	font-size: 16px;
+	margin-top: 15px;
+	margin-left: 48px;
+}
+
+.cat_ul .l_tit label {
+	font-size: 13px;
+	margin-left: 10px;
+}
+
+.cat_ul .r {
+	float: right;
+	font-size: 19px;
+	margin-right: 30px;
+}
+
+.tb {
+	width: 700px;
+	height: 240px;
+	margin-left: 50px;
+}
+
+.tb .l {
+	width: 165px;
+	height: 165px;
+	float: left;
+}
+
+.tb .r {
+	width: 165px;
+	height: 165px;
+	float: right;
+}
+
+/*index1.html*/
+.container_cen1 {
+	float: left;
+	width: 55%;
+	margin-left: 30px;
+}
+/** index2.html **/
+.container_cen {
+	float: left;
+	width: 40%;
+	margin-left: 30px;
+}
+
+.cen_4_h3 {
+	border: 1px solid #d0d7f9;
+	width: 100%;
+	float: left;
+	height: 318px;
+	margin-bottom: 20px;
+}
+
+.cen_4_h3 .chunk {
+	width: 95%;
+	height: 87.5%;
+}
+
+.right_3_r {
+	border: 1px solid #d0d7f9;
+	width: 100%;
+	float: left;
+	height: 318px;
+	margin-bottom: 20px;
+}
+
+.right_3_r.chunk {
+	height: 87.5%;
+}
+
+.cen_7_h3 {
+	border: 1px solid #d0d7f9;
+	width: 68%;
+	float: left;
+	height: 318px;
+	margin-bottom: 20px;
+	margin-left: 30px;
+}
+
+.cen_6_h3 {
+	border: 1px solid #d0d7f9;
+	width: 97%;
+	float: left;
+	height: 486px;
+	margin-bottom: 20px;
+	margin-left: 30px;
+}
+
+.cen_7_h3 .chunk {
+	height: 87.5%;
+}
+
+.cen_6_h3 .chunk {
+	height: 447px;
+}
+
+.tb_line {
+	width: 100%;
+	height: 200px;
+}
+
+.tb_line6 {
+	width: 100%;
+	height: 430px;
+}
+
+/** index3.html **/
+.left_26 {
+	border: 1px solid #d0d7f9;
+	width: 28.5%;
+	float: left;
+	height: 100%;
+}
+
+.right_26 {
+	border: 1px solid #d0d7f9;
+	width: 28%;
+	float: left;
+	height: 100%;
+	margin-left: 30px;
+}
+
+.left_26 .chunk {
+	margin-left: 0px;
+	width: 93%;
+	height: 96.1%;
+}
+
+.right_26 .chunk {
+	margin-left: 0px;
+	width: 93%;
+	height: 96.1%;
+}
+
+.tb_3_pie {
+	width: 100%;
+	height: 270px;
+	/* margin-left: 130px; */
+	margin-top: 20px;
+}
+
+/** index4.html **/
+.cen_4_h2 {
+	border: 1px solid #d0d7f9;
+	width: 100%;
+	float: left;
+	height: 625px;
+	margin-bottom: 20px;
+}
+
+.cen_4_h2 .chunk {
+	width: 95%;
+	height: 94%;
+}
+
+/** index5.html **/
+.cen_7_1 {
+	border: 1px solid #d0d7f9;
+	width: 68%;
+	float: left;
+	height: 300px;
+	margin-left: 30px;
+	margin-bottom: 20px;
+}
+
+.cen_7_1 .chunk {
+	width: 97.1%;
+	height: 86.5%;
+}
+
+.cen_7_2 {
+	width: 42%;
+	height: 678px;
+	float: left;
+	border: 1px solid #d0d7f9;
+	margin-left: 30px;
+	margin-bottom: 20px;
+}
+
+.cen_7_2 .chunk {
+	width: 95.3%;
+	height: 94.1%;
+}
+
+.cen_7_3 {
+	width: 24.5%;
+	height: 678px;
+	float: left;
+	border: 1px solid #d0d7f9;
+	margin-left: 30px;
+	margin-bottom: 20px;
+}
+
+.cen_7_3 .chunk {
+	width: 92%;
+	height: 94.1%;
+}
+
+.cen_7_1 .userinfo {
+	width: 100%;
+	height: 250px;
+	margin: 0px 10px 30px 40px;
+}
+
+.cen_7_1 .userinfo .tx {
+	background-color: #CCC;
+	margin-top: -5px;
+	height: 250px;
+	float: left;
+}
+
+.userinfo .code {
+	width: 1000px;
+	margin: 10px 100px 0px 240px;
+	padding-top: 20px;
+}
+
+.userinfo .code .wjx {
+	width: 40px;
+}
+
+.userinfo .code span {
+	margin-right: 30px;
+	font-size: 43px;
+	color: #1094f6;
+	font-family: fantasy;
+}
+
+.userinfo .info {
+	width: 1000px;
+	height: 40px;
+	font-size: 30px;
+	color: #fff;
+	margin-top: 20px;
+}
+
+.userinfo .info h4 {
+	float: left;
+	width: 500px;
+	margin: 0px;
+	font-weight: 100;
+}
+
+.cen_ul {
+	color: #fff;
+	list-style-type: none;
+	margin-left: -20px;
+}
+
+.cen_ul li {
+	border-top: 1px solid #1d3393;
+	height: 90px;
+}
+
+.cen_ul .img {
+	margin-top: 25px;
+	float: left;
+}
+
+.cen_ul .img img {
+	width: 50px;
+}
+
+.cen_ul .l_tit {
+	font-size: 23px;
+	margin-top: 35px;
+	margin-left: 58px;
+}
+
+.cen_ul .l_tit label {
+	font-size: 16px;
+	margin-left: 10px;
+}
+
+.cen_ul .r {
+	float: right;
+	font-size: 23px;
+	margin-right: 30px;
+}
+
+.stats {
+	margin-top: 30px;
+	height: 60px;
+	border-bottom: 1px solid #7b8392;
+}
+
+.stats .total {
+	float: right;
+	font-size: 43px;
+	color: #1094f6;
+	font-family: fantasy;
+	margin-right: 50px;
+}
+
+.clear {
+	clear: both;
+}
+
+.ranks {
+	width: 35%;
+	height: 550px;
+	margin-top: -50px;
+	margin-right: 20px;
+	float: right;
+}
+
+.ranks h1 {
+	text-align: center;
+	color: white;
+}
+
+.ranks tr,td {
+	border:1px solid white;
+	width: 100%;
+	color: white;
+	font-size: 23px;
+}
+.ranks table {
+	width: 100%;
+	color: white;
+	cellspacing:0;
+}
+.ranks table span{
+	
+	
+}
+.ranks table tr {
+	height: 80px;
+}
+.ranks table tr td span {
+	color:rgba(255,255,255,1);
+}
+.ranks table tr .tdType {
+	width: 40%;
+	height: 30px;
+	text-align: center;
+}
+
+.ranks table tr .tdCount {
+	width: 30%;
+	height: 30px;
+	text-align: right;
+}
