@@ -7,7 +7,6 @@ import org.springframework.web.servlet.DispatcherServlet;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration.Dynamic;
-import javax.swing.*;
 
 /**
  * Spring configuration and Spring MVC bootstrapping.
