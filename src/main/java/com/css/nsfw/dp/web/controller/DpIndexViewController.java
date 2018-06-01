@@ -33,6 +33,11 @@ public class DpIndexViewController {
 
 	@GetMapping(value = "/five")
 	public String view5() {
+		return "index5_single";
+	}
+
+	@GetMapping(value = "/five_all")
+	public String view5All() {
 		return "index5";
 	}
 
@@ -55,7 +60,7 @@ public class DpIndexViewController {
 	public String console() {
 		return "console";
 	}
-	
+
 	@GetMapping(value = "/all_v4")
 	public String viewall_v4() {
 		return "index_all_v4";

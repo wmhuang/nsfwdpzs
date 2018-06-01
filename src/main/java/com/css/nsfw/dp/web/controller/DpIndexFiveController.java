@@ -1,15 +1,15 @@
 package com.css.nsfw.dp.web.controller;
 
-import com.css.nsfw.dp.service.INfxxService;
-import com.css.nsfw.dp.service.IWtService;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Map;
+import com.css.nsfw.dp.service.INfxxService;
 
 /**
  * Created by autod on 2017/5/24.
@@ -19,12 +19,15 @@ import java.util.Map;
 public class DpIndexFiveController {
     @Autowired
     private INfxxService dpxxService;
-    @Autowired
-    private IWtService wtService;
 
     @GetMapping(value = "/getZxXx")
     public List getZxXx(){
         return dpxxService.getZxXx();
+    }
+    
+    @GetMapping(value = "/getZxXxAll")
+    public List getZxXxAll(){
+        return dpxxService.getZxXxAll();
     }
 
     @GetMapping(value = "/getZxFwxx/{zxdm}")

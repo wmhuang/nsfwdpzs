@@ -153,4 +153,12 @@ public class NfxxServiceImpl implements INfxxService {
 		return nfxxDao.getQgHwzlRgfwlJtl();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.css.nsfw.dp.service.INfxxService#getZxXxAll()
+	 */
+	@Override
+	public List getZxXxAll() {
+		return nfxxDao.getZxXxAll();
+	}
+
 }

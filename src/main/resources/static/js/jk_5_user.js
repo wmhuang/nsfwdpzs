@@ -23,10 +23,31 @@ function get5user(){
 		}
 	});
 }
+function get5userAll(){
+	/** 用户信息及相关情况 **/
+	 $.ajax({				 
+		type: "get",
+		url: "http://"+window.location.host+"/nfpt/five/getZxXxAll",
+		async:false,
+		data: {},
+		dataType: "json",
+		success: function(datas){
+            userList = datas;
+            updateUser();
+            getUserinfo();
+			updateUS();
+            setInterval(function () {
+                updateUser();
+                getUserinfo();
+                updateUS();
+            },5000);
+		},error: function(XMLHttpRequest, textStatus, errorThrown){
+			
+		}
+	});
+}
 function updateUser() {
     $("#tx").attr("src","../userimg/"+userList[us].ZXGH+".JPG");
-    //$("#tx")。attr("onerror","this.src='../img/c_1.png'");
-    //$("#tx")。attr("onerror","src='../img/c_1.png'");
     $("#gh").html(userList[us].ZXGH+"号");
     $("#zb").html(userList[us].ZB);
     $("#zzmm").html(userList[us].ZZMM);

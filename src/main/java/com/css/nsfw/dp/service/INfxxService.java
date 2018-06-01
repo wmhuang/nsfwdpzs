@@ -29,4 +29,6 @@ public interface INfxxService {
     Map getShYHwzl();
 	Map getShHwzlRgfwlJtl();
 	Map getQgHwzlRgfwlJtl(); //全国话务总量
+	 
+	List getZxXxAll();  //单独播放five页面需要查询所有的人员
 }

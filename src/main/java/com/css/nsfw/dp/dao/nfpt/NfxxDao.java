@@ -63,4 +63,11 @@ public interface NfxxDao {
 	Map getShYHwzl();
 
 	Map getQgHwzlRgfwlJtl();
+
+	/**
+	 * @return
+	 * @createDate 2018年5月29日
+	 * @author wmhuang
+	*/
+	List getZxXxAll();
 }

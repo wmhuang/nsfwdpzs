@@ -279,6 +279,25 @@ having sum(t.slsum) > 2000
 						   WHERE ROWNUM < 7)
 	]]>
 	</select>
+	<select id="getZxXxAll" resultType="Map" >
+	<![CDATA[
+		select t.zxgh,
+			   t.xm,
+			   t.xj,
+			   t.zb,
+			   a.mc xl,
+			   b.mc zzmm,
+			   trunc((trunc(sysdate, 'yyyy') - trunc(t.rzsj, 'yyyy')) / 365) gznx
+		  from db_nfgl.T_DJ_ZXRYXX t, db_xtwh.t_dm_gy_xl a, db_xtwh.t_dm_gy_zzmm b
+		 where t.zzmm_dm = b.zzmm_dm
+		   and t.xl_dm = a.xl_dm
+		   and t.zxgh in (SELECT zxgh
+							FROM (SELECT zxgh
+									FROM db_nfgl.T_DJ_ZXRYXX a
+								   where a.yxbz = 'Y'
+								   ORDER BY dbms_random.value()))
+	]]>
+	</select>
 	<select id="getZxFwxx" resultType="Map" >
 	<![CDATA[
 					select t.jthwl rgfwl,
